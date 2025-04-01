@@ -1,6 +1,9 @@
 
 # 🛠️ Aleo Starter Template
 
+💡 This template is open-sourced to help others build on Aleo faster — even if it means creating our own competition. The goal is to grow the ecosystem and make privacy-first apps more accessible for everyone!
+
+
 A modern, open-source starter template for building **Aleo dApps** with:
 
 - [Next.js](https://nextjs.org/) + [TypeScript](https://www.typescriptlang.org/)

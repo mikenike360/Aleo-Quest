@@ -6,11 +6,8 @@ export interface FeeMapping {
   
   // Hard-coded fee values in credits
   export const defaultFeeValues: FeeMapping = {
-    post_bounty: 0.051598,
-    submit_proposal: 0.042786,
-    accept_proposal: 0.027616,
-    deny_proposal: 0.01445,
-    delete_bounty: 0.033482,
+    //You can use Leo Playground to get the fee values for each function
+    // https://playground.aleo.org/
     transfer_public: 0.04406,
     transfer_private: 0.04406,
   };

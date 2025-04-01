@@ -62,6 +62,26 @@ You can replace this with your own program and wire it into the frontend via Ale
 
 ---
 
+## 🔄 Switching to Aleo Mainnet
+
+By default, this template connects to the Aleo **testnet3** environment.  
+To switch to **mainnet**, follow these steps:
+
+1. Open `src/types/index.ts`
+2. Change the `RPC_URL` and `EXPLORER_URL` constants to point to mainnet endpoints
+3. Then open `src/pages/_app.tsx` and change the `network` prop for `WalletAdapterNetwork` from:
+```ts
+network={WalletAdapterNetwork.Testnet}
+```
+to:
+```ts
+network={WalletAdapterNetwork.MainnetBeta}
+```
+
+You are now ready to build against Aleo mainnet!
+
+---
+
 ## 📦 Project Structure
 
 ```

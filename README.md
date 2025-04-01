@@ -26,8 +26,8 @@ A modern, open-source starter template for building **Aleo dApps** with:
 ## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/mikenike360/zkontract.git aleo-starter
-cd aleo-starter
+git clone https://github.com/mikenike360/aleo-starter-template.git
+cd aleo-starter-template
 yarn install
 yarn dev
 ```

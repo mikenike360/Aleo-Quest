@@ -40,22 +40,14 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 This template includes Leo Wallet browser extension support.
 
-### 👉 How it works:
-- Detects Leo Wallet via `window.aleo`
-- Allows users to connect and view their public address and view key
-- Code: [`components/aleo/WalletConnect.tsx`](./src/components/aleo/WalletConnect.tsx)
-
-> Make sure you have the [Leo Wallet extension](https://www.aleo.org/post/leo-wallet) installed.
-
----
 
 ## 🧩 Example Aleo Program
 
-Includes a demo `.leo` program and compiled build:
+Includes a demo `main.leo` program and compiled build:
 
 ```bash
 cd program
-leo run main
+leo build
 ```
 
 You can replace this with your own program and wire it into the frontend via Aleo RPC or your preferred method.
@@ -64,14 +56,14 @@ You can replace this with your own program and wire it into the frontend via Ale
 
 ## 🔄 Switching to Aleo Mainnet
 
-By default, this template connects to the Aleo **testnet3** environment.  
+By default, this template connects to the Aleo **testnetbeta** environment.  
 To switch to **mainnet**, follow these steps:
 
 1. Open `src/types/index.ts`
-2. Change the `RPC_URL` and `EXPLORER_URL` constants to point to mainnet endpoints
+2. Change the `CURRENT_NETWORK` and `CURRENT_RPC_URL` constants to point to mainnet endpoints
 3. Then open `src/pages/_app.tsx` and change the `network` prop for `WalletAdapterNetwork` from:
 ```ts
-network={WalletAdapterNetwork.Testnet}
+network={WalletAdapterNetwork.TestnetBeta}
 ```
 to:
 ```ts
@@ -118,7 +110,8 @@ You can click **“Use this template”** on GitHub to instantly clone and start
 
 ## 📸 Screenshot
 
-> _Drop a screenshot here of the starter homepage with Leo Wallet connected_
+![Alt text](public/screen_shot.png)
+
 
 ---
 

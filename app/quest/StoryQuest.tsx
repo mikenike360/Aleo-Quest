@@ -187,7 +187,7 @@ export function StoryQuest({ stage, onComplete }: StoryQuestProps) {
       
       {/* Content on top */}
       <TerminalScroll>
-        <div className="relative z-10 space-y-6 flex flex-col p-4">
+        <div className="relative z-20 space-y-6 flex flex-col p-4">
           {/* Content in terminal window */}
           <QuestTerminal>
         {/* Render current beat */}

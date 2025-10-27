@@ -47,8 +47,7 @@ export function StageBackdrop({
             animate={{ opacity: npcOpacity, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 20, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="absolute right-2 bottom-0 md:right-8 md:bottom-0"
-            style={{ zIndex: 20 }}
+            className="absolute right-2 bottom-0 md:right-8 md:bottom-0 z-0"
           >
             <img 
               src={npcSrc} 

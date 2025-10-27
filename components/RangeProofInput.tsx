@@ -121,11 +121,11 @@ export function RangeProofInput({ prompt, config, onProofGenerated }: RangeProof
              <>
                {/* Age Display and Slider - Inline */}
                <div className="space-y-3">
-                 <div className="flex items-center justify-between">
-                   <TerminalText colorScheme="purple" variant="accent" className="text-sm">
+                 <div className="flex items-center justify-between gap-2">
+                   <TerminalText colorScheme="purple" variant="accent" className="text-xs sm:text-sm break-words">
                      AGE: {age !== null ? age : '?'}
                    </TerminalText>
-                   <TerminalText colorScheme="purple" variant="muted" className="text-xs">
+                   <TerminalText colorScheme="purple" variant="muted" className="text-xs flex-shrink-0">
                      {age !== null ? getZoneLabel(age) : 'Select age'}
                    </TerminalText>
                  </div>
@@ -194,7 +194,7 @@ export function RangeProofInput({ prompt, config, onProofGenerated }: RangeProof
                        <TerminalText 
                          colorScheme="purple" 
                          variant={age >= 18 ? "success" : "error"}
-                         className="text-xs font-mono"
+                         className="text-xs font-mono break-words text-center"
                        >
                          {age < 13 ? 'TOO YOUNG - ACCESS DENIED' :
                           age < 18 ? 'ALMOST THERE - KEEP SLIDING' :
@@ -225,7 +225,7 @@ export function RangeProofInput({ prompt, config, onProofGenerated }: RangeProof
                    disabled={isGenerating}
                    colorScheme="purple"
                    command="generate_range_proof"
-                   className="w-full py-3 text-base"
+                   className="w-full py-3 text-sm sm:text-base"
                  >
                    GENERATE AGE RANGE PROOF
                  </TerminalButton>
@@ -234,7 +234,7 @@ export function RangeProofInput({ prompt, config, onProofGenerated }: RangeProof
                {/* Loading Animation - Compact */}
                {isGenerating && (
                  <div className="space-y-2">
-                   <TerminalText colorScheme="purple" variant="accent" className="text-xs text-center">
+                   <TerminalText colorScheme="purple" variant="accent" className="text-xs text-center break-words">
                      PROCESSING: Sealing age in cryptographic magic...
                    </TerminalText>
                    <div className="flex justify-center">
@@ -248,11 +248,11 @@ export function RangeProofInput({ prompt, config, onProofGenerated }: RangeProof
            {/* Proof Result - Replace interactive content */}
            {proofGenerated && age !== null && (
              <div className="space-y-3">
-               <div className="flex items-center justify-between">
-                 <TerminalStatus status="ok" className="text-base font-bold">
+               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                 <TerminalStatus status="ok" className="text-xs sm:text-base font-bold break-words">
                    Range proof generated successfully
                  </TerminalStatus>
-                 <TerminalText colorScheme="purple" variant="success" className="text-sm">
+                 <TerminalText colorScheme="purple" variant="success" className="text-xs sm:text-sm flex-shrink-0">
                    Age ≥ {config.threshold} = TRUE
                  </TerminalText>
                </div>
@@ -261,11 +261,11 @@ export function RangeProofInput({ prompt, config, onProofGenerated }: RangeProof
                  <TerminalText colorScheme="purple" variant="muted" className="text-xs block mb-1">
                    GUARDIAN_KNOWLEDGE:
                  </TerminalText>
-                 <div className="font-mono text-xs space-y-1">
-                   <TerminalText colorScheme="purple" variant="success" className="block">
+                 <div className="font-mono text-xs space-y-1 break-words">
+                   <TerminalText colorScheme="purple" variant="success" className="block break-words">
                      ✓ Age meets threshold
                    </TerminalText>
-                   <TerminalText colorScheme="purple" variant="muted" className="block">
+                   <TerminalText colorScheme="purple" variant="muted" className="block break-words">
                      ✗ Exact age (hidden)
                    </TerminalText>
                  </div>
@@ -283,7 +283,7 @@ export function RangeProofInput({ prompt, config, onProofGenerated }: RangeProof
           onClick={() => onProofGenerated(age)}
           colorScheme="purple"
           command="continue_quest"
-          className="w-full py-3 text-base"
+          className="w-full py-3 text-sm sm:text-base"
         >
           CONTINUE TO MARKET STAGE →
         </TerminalButton>

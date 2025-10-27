@@ -95,8 +95,8 @@ export function PropertySelector({
           {currentStep === 'selection' && (
             <>
               {/* Commitment Badge - Inline */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                <div className="flex items-center space-x-2 min-w-0">
                   <ProofBadge 
                     type="vault" 
                     label="Commitment" 
@@ -104,18 +104,18 @@ export function PropertySelector({
                     isVerified={true}
                     size="sm"
                   />
-                  <TerminalText colorScheme="green" variant="primary" className="text-sm">
+                  <TerminalText colorScheme="green" variant="primary" className="text-sm break-all">
                     {maskedSecret}
                   </TerminalText>
                 </div>
-                <TerminalStatus status="ok" className="text-xs">
+                <TerminalStatus status="ok" className="text-xs flex-shrink-0">
                   Ready
                 </TerminalStatus>
               </div>
 
               {/* Property Selection - Compact */}
               <div className="space-y-3">
-                <TerminalText colorScheme="green" variant="accent" className="text-sm">
+                <TerminalText colorScheme="green" variant="accent" className="text-xs sm:text-sm break-words">
                   SELECT_PROPERTY: Choose ONE property
                 </TerminalText>
                 
@@ -154,7 +154,7 @@ export function PropertySelector({
                         <TerminalText 
                           colorScheme="green" 
                           variant={isSelected ? (isCorrect ? "success" : "warning") : "muted"}
-                          className="flex-1"
+                          className="flex-1 break-words text-xs sm:text-sm"
                         >
                           {option.label}
                         </TerminalText>
@@ -174,7 +174,7 @@ export function PropertySelector({
               {selectedProperties.length > 0 && (
                 <TerminalStatus 
                   status={isOverSharing ? "error" : hasCorrectSelection ? "ok" : "warning"}
-                  className="text-sm"
+                  className="text-xs sm:text-sm break-words"
                 >
                   {isOverSharing 
                     ? 'Over-sharing detected! Share only what\'s necessary.'
@@ -191,7 +191,7 @@ export function PropertySelector({
                 disabled={selectedProperties.length === 0}
                 colorScheme="green"
                 command={selectedProperties.length > 0 ? "generate_proof --zk" : "select_property"}
-                className="w-full py-3 text-base"
+                className="w-full py-3 text-sm sm:text-base break-words"
               >
                 {selectedProperties.length > 0 ? 'GENERATE ZERO-KNOWLEDGE PROOF' : 'SELECT PROPERTY FIRST'}
               </TerminalButton>
@@ -201,7 +201,7 @@ export function PropertySelector({
           {/* Circuit Visualization - Transform in same panel */}
           {currentStep === 'circuit' && (
             <div className="space-y-3">
-              <TerminalText colorScheme="green" variant="accent" className="text-sm">
+              <TerminalText colorScheme="green" variant="accent" className="text-xs sm:text-sm break-words">
                 CIRCUIT_EXECUTION: Generating proof...
               </TerminalText>
               
@@ -217,7 +217,7 @@ export function PropertySelector({
               </div>
               
               <div className="text-center">
-                <TerminalText colorScheme="green" variant="accent" className="text-sm">
+                <TerminalText colorScheme="green" variant="accent" className="text-xs sm:text-sm break-words">
                   {circuitStep === 0 && 'STATUS: Preparing circuit...'}
                   {circuitStep === 1 && 'STATUS: Processing commitment...'}
                   {circuitStep === 2 && 'STATUS: Applying predicate...'}
@@ -231,8 +231,8 @@ export function PropertySelector({
           {/* Result - Transform in same panel */}
           {currentStep === 'result' && (
             <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                <div className="flex items-center space-x-2 min-w-0">
                   <ProofBadge 
                     type="length" 
                     label="Length Proof" 
@@ -240,11 +240,11 @@ export function PropertySelector({
                     isVerified={true}
                     size="sm"
                   />
-                  <TerminalStatus status="ok" className="text-base font-bold">
+                  <TerminalStatus status="ok" className="text-xs sm:text-base font-bold break-words">
                     Proof generated successfully
                   </TerminalStatus>
                 </div>
-                <TerminalText colorScheme="green" variant="success" className="text-sm">
+                <TerminalText colorScheme="green" variant="success" className="text-xs sm:text-sm flex-shrink-0">
                   Length ≥ 6 characters = TRUE
                 </TerminalText>
               </div>
@@ -253,14 +253,14 @@ export function PropertySelector({
                 <TerminalText colorScheme="green" variant="muted" className="text-xs block mb-1">
                   GUARDIAN_KNOWLEDGE:
                 </TerminalText>
-                <div className="font-mono text-xs space-y-1">
-                  <TerminalText colorScheme="green" variant="success" className="block">
+                <div className="font-mono text-xs space-y-1 break-words">
+                  <TerminalText colorScheme="green" variant="success" className="block break-words">
                     ✓ Secret has ≥ 6 characters
                   </TerminalText>
-                  <TerminalText colorScheme="green" variant="muted" className="block">
+                  <TerminalText colorScheme="green" variant="muted" className="block break-words">
                     ✗ Secret content (hidden)
                   </TerminalText>
-                  <TerminalText colorScheme="green" variant="muted" className="block">
+                  <TerminalText colorScheme="green" variant="muted" className="block break-words">
                     ✗ Exact character count
                   </TerminalText>
                 </div>
@@ -279,7 +279,7 @@ export function PropertySelector({
           onClick={handleComplete}
           colorScheme="green"
           command="continue_quest"
-          className="w-full py-3 text-base"
+          className="w-full py-3 text-sm sm:text-base"
         >
           CONTINUE TO CHOICE STAGE →
         </TerminalButton>

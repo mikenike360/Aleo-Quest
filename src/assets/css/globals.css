@@ -2,19 +2,122 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fix drag overlay positioning */
+[data-rbd-drag-handle-dragging-id] {
+  transform: none !important;
+}
+
+[data-rbd-drag-handle-dragging-id] * {
+  transform: none !important;
+}
+
+/* Ensure drag overlays follow cursor properly */
+[data-dnd-kit-drag-overlay] {
+  transform-origin: 0 0 !important;
+  pointer-events: none !important;
+  z-index: 9999 !important;
+}
+
+/* Fix @dnd-kit drag overlay positioning */
+[data-dnd-kit-drag-overlay] * {
+  pointer-events: none !important;
+}
+
+/* Ensure dragged elements don't interfere with cursor positioning */
+[data-dnd-kit-dragging] {
+  pointer-events: none !important;
+}
+
+/* Custom drag overlay positioning */
+.custom-drag-overlay {
+  transform: translate(-50%, -50%) !important;
+  pointer-events: none !important;
+}
+
 @layer base {
   :root {
     --color-brand: 43 24 39;
   }
+  
+  * {
+    @apply border-gray-800;
+  }
+  
   html,
   body {
-    @apply antialiased bg-base-100 font-body text-base-content;
+    @apply antialiased bg-gray-900 font-body text-white;
   }
+  
   .dynamic-html h6 {
     @apply font-medium uppercase;
   }
   .dynamic-html p {
     @apply mb-3;
+  }
+  
+  /* Prose styles for MDX content */
+  .prose {
+    @apply max-w-none;
+  }
+  
+  .prose p {
+    @apply text-gray-300 leading-relaxed mb-4;
+  }
+  
+  .prose h1 {
+    @apply text-4xl font-bold mb-6 text-white;
+  }
+  
+  .prose h2 {
+    @apply text-3xl font-bold mt-12 mb-4 text-white;
+  }
+  
+  .prose h3 {
+    @apply text-2xl font-semibold mt-8 mb-3 text-white;
+  }
+  
+  .prose ul, .prose ol {
+    @apply my-4 ml-6 space-y-2 text-gray-300;
+  }
+  
+  .prose li {
+    @apply leading-relaxed;
+  }
+  
+  .prose strong {
+    @apply text-white font-semibold;
+  }
+  
+  .prose a {
+    @apply text-blue-400 hover:text-blue-300 underline;
+  }
+  
+  .prose code {
+    @apply text-purple-400 bg-gray-800 px-1.5 py-0.5 rounded text-sm;
+  }
+  
+  .prose pre {
+    @apply bg-gray-900 border border-gray-800 rounded-xl p-4 overflow-x-auto my-6;
+  }
+  
+  .prose pre code {
+    @apply bg-transparent p-0;
+  }
+  
+  .prose blockquote {
+    @apply border-l-4 border-blue-500 pl-4 italic text-gray-400 my-6;
+  }
+  
+  .prose table {
+    @apply w-full my-6 border-collapse;
+  }
+  
+  .prose th {
+    @apply bg-gray-800 text-left p-3 font-semibold border-b border-gray-700;
+  }
+  
+  .prose td {
+    @apply p-3 border-b border-gray-800;
   }
 }
 
@@ -40,6 +143,56 @@
   .text-vertical {
     writing-mode: tb;
     text-orientation: upright;
+  }
+  
+  /* Terminal cursor blink */
+  @keyframes terminal-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  
+  .terminal-cursor {
+    animation: terminal-blink 1s infinite;
+  }
+  
+  /* Smooth text rendering for terminal */
+  .terminal-text {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Glow effect */
+  .text-glow {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+  }
+  
+  .text-glow-sm {
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+  }
+  
+  /* Terminal borders and chrome */
+  .terminal-border {
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+  }
+  
+  .terminal-chrome {
+    background: rgba(17, 24, 39, 0.8);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+    font-family: 'Fira Code', monospace;
+  }
+  
+  /* Step card hover with scanline effect */
+  .step-card-hover:hover {
+    border-color: rgba(99, 102, 241, 0.5);
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(99, 102, 241, 0.03) 2px,
+      rgba(99, 102, 241, 0.03) 4px
+    );
   }
 }
 

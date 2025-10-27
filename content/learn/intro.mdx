@@ -1,0 +1,229 @@
+---
+id: "intro"
+title: "The Problem with Blockchains"
+summary: "Why most blockchains can't be used for real payments"
+ctaLabel: "Next: The Magic Solution"
+ctaHref: "/learn/zk"
+---
+
+# Imagine This...
+
+You just got paid. Your salary hits your account. Normally, that's private—between you, your employer, and your bank.
+
+**But what if everyone could see it?**
+
+<div className="my-8 grid gap-6 sm:grid-cols-2">
+  <div className="overflow-hidden rounded-xl border border-red-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-red-500/5">
+    <div className="border-b border-red-500/20 bg-red-500/10 px-5 py-3">
+      <div className="font-mono text-xs text-red-400">🔓 public-blockchain.log</div>
+    </div>
+    <div className="p-6">
+      <div className="space-y-2.5 font-mono text-sm">
+        <div className="flex items-center gap-2 text-red-300">
+          <span className="text-red-500">✓</span>
+          <span>Salary: <strong className="text-red-200">$75,000/year</strong></span>
+        </div>
+        <div className="flex items-center gap-2 text-red-300">
+          <span className="text-red-500">✓</span>
+          <span>Payment: <strong className="text-red-200">$1,200</strong> to landlord</span>
+        </div>
+        <div className="flex items-center gap-2 text-red-300">
+          <span className="text-red-500">✓</span>
+          <span>Balance: <strong className="text-red-200">$8,543.21</strong></span>
+        </div>
+        <div className="flex items-center gap-2 text-red-300">
+          <span className="text-red-500">✓</span>
+          <span>Coffee: <strong className="text-red-200">$4.50</strong></span>
+        </div>
+        <div className="flex items-center gap-2 text-red-300">
+          <span className="text-red-500">✓</span>
+          <span>Every transaction <strong className="text-red-200">ever</strong></span>
+        </div>
+      </div>
+      <div className="mt-4 pt-4 border-t border-red-500/20 font-mono text-xs text-red-400">
+        All visible to everyone, forever
+      </div>
+    </div>
+  </div>
+  
+  <div className="overflow-hidden rounded-xl border border-green-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-green-500/5">
+    <div className="border-b border-green-500/20 bg-green-500/10 px-5 py-3">
+      <div className="font-mono text-xs text-green-400">🔒 private-normal.log</div>
+    </div>
+    <div className="p-6">
+      <div className="space-y-2.5 font-mono text-sm">
+        <div className="flex items-center gap-2 text-gray-400">
+          <span className="text-gray-600">✗</span>
+          <span>Hidden from public</span>
+        </div>
+        <div className="flex items-center gap-2 text-gray-400">
+          <span className="text-gray-600">✗</span>
+          <span>Only you see details</span>
+        </div>
+        <div className="flex items-center gap-2 text-gray-400">
+          <span className="text-gray-600">✗</span>
+          <span>Bank keeps it private</span>
+        </div>
+        <div className="flex items-center gap-2 text-gray-400">
+          <span className="text-gray-600">✗</span>
+          <span>No one tracks you</span>
+        </div>
+        <div className="flex items-center gap-2 text-green-300 font-semibold">
+          <span className="text-green-500">✓</span>
+          <span>Your financial life is <strong className="text-green-200">yours</strong></span>
+        </div>
+      </div>
+      <div className="mt-4 pt-4 border-t border-green-500/20 font-mono text-xs text-green-400">
+        This is how it should be
+      </div>
+    </div>
+  </div>
+</div>
+
+Sounds insane, right?
+
+## That's How Most Blockchains Work
+
+Every Bitcoin transaction is public. Every Ethereum payment is visible to the world. Forever.
+
+<div className="my-6 overflow-hidden rounded-xl border border-red-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-red-500/5">
+  <div className="border-b border-red-500/20 bg-red-500/10 px-5 py-3">
+    <div className="font-mono text-xs text-red-400">📢 public-ledger.log</div>
+  </div>
+  <div className="p-5">
+    <p className="font-mono text-sm font-semibold text-red-300 mb-4">Anyone can view your entire financial life:</p>
+    <div className="space-y-2.5 font-mono text-sm text-red-300 mb-4">
+      <div className="flex items-center gap-2">
+        <span className="text-red-500">→</span>
+        <span>0xABC... → 0xDEF... <strong className="text-red-200">$500</strong></span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="text-red-500">→</span>
+        <span>0xABC... → 0x123... <strong className="text-red-200">$1,200</strong></span>
+      </div>
+      <div className="flex items-center gap-2">
+        <span className="text-red-500">→</span>
+        <span>0xABC... → 0x456... <strong className="text-red-200">$4.50</strong></span>
+      </div>
+    </div>
+    <div className="space-y-1.5 font-mono text-xs text-gray-400 pt-3 border-t border-red-500/20">
+      <div>Current Balance: <strong className="text-red-300">$8,543.21</strong></div>
+      <div>Total Received: <strong className="text-red-300">$75,000</strong></div>
+      <div className="text-red-400 mt-2">All transaction history visible forever</div>
+    </div>
+  </div>
+</div>
+
+<Callout type="warning" title="Try It Yourself">
+  Go to any blockchain explorer (like Etherscan). Pick any wallet. You can see their entire financial life. Every transaction. Every balance. Everything.
+</Callout>
+
+**Why this is a problem:**
+
+<div className="my-6 overflow-hidden rounded-xl border border-red-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-red-500/5">
+  <div className="border-b border-red-500/20 bg-red-500/10 px-5 py-3">
+    <div className="font-mono text-xs text-red-400">problems.txt</div>
+  </div>
+  <div className="p-5 space-y-3">
+    <div className="flex items-center gap-3 font-mono">
+      <span className="text-xl">🏢</span>
+      <div className="flex-1">
+        <span className="text-sm font-semibold text-white">Companies:</span>
+        <span className="text-sm text-gray-400 ml-2">Can't do payroll (everyone sees salaries)</span>
+      </div>
+    </div>
+    
+    <div className="flex items-center gap-3 font-mono">
+      <span className="text-xl">🏦</span>
+      <div className="flex-1">
+        <span className="text-sm font-semibold text-white">Banks:</span>
+        <span className="text-sm text-gray-400 ml-2">Won't use it (privacy laws)</span>
+      </div>
+    </div>
+    
+    <div className="flex items-center gap-3 font-mono">
+      <span className="text-xl">👤</span>
+      <div className="flex-1">
+        <span className="text-sm font-semibold text-white">You:</span>
+        <span className="text-sm text-gray-400 ml-2">Don't want finances exposed</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+**Privacy isn't a luxury. It's a requirement.**
+
+## Enter Aleo
+
+Aleo is different. It's a blockchain where **privacy is the default**.
+
+<div className="my-8 overflow-hidden rounded-xl border border-cyan-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-cyan-500/5">
+  <div className="border-b border-cyan-500/20 bg-cyan-500/10 px-5 py-3">
+    <div className="font-mono text-xs text-cyan-400">aleo-benefits.txt</div>
+  </div>
+  <div className="p-5">
+    <div className="mb-4 font-mono text-sm text-cyan-300">With Aleo, you get:</div>
+    <div className="space-y-2.5 font-mono text-sm">
+      <div className="flex items-center gap-3">
+        <span className="text-xl">🔒</span>
+        <div>
+          <span className="font-semibold text-white">Private Balance</span>
+          <span className="text-gray-400 ml-2">— Nobody sees it</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="text-xl">🎭</span>
+        <div>
+          <span className="font-semibold text-white">Hidden Transactions</span>
+          <span className="text-gray-400 ml-2">— Amounts stay secret</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="text-xl">✅</span>
+        <div>
+          <span className="font-semibold text-white">Still Verifiable</span>
+          <span className="text-gray-400 ml-2">— Math proves correctness</span>
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="text-xl">⚖️</span>
+        <div>
+          <span className="font-semibold text-white">Compliant</span>
+          <span className="text-gray-400 ml-2">— Share only what's needed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-quiz>
+<Quiz
+  stepId="intro"
+  question="Why don't companies use traditional blockchains for payroll?"
+  options={[
+    {
+      id: "a",
+      text: "Too slow",
+      isCorrect: false,
+      explanation: "Speed is a factor, but not the main blocker."
+    },
+    {
+      id: "b",
+      text: "Everyone can see employee salaries",
+      isCorrect: true,
+      explanation: "Exactly! Public blockchains expose all transaction amounts, making them unsuitable for private business operations like payroll."
+    },
+    {
+      id: "c",
+      text: "Too expensive",
+      isCorrect: false,
+      explanation: "Cost matters, but the privacy issue is the deal-breaker."
+    }
+  ]}
+/>
+</div>
+
+<Callout type="tip" title="But wait...">
+  How can a blockchain verify transactions if they're private? That's where the magic happens. Let's dive in...
+</Callout>
+

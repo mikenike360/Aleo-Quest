@@ -3,9 +3,10 @@
 const webpack = require('webpack');
 const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
+const withMDX = require('@next/mdx')();
 require('dotenv').config();
 
-module.exports = withPWA({
+const nextConfig = {
   env: {
     URL: process.env.URL,
     TWITTER: process.env.TWITTER,
@@ -13,6 +14,7 @@ module.exports = withPWA({
     RPC_URL: process.env.RPC_URL,
   },
   reactStrictMode: true,
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   pwa: {
     dest: 'public',
     disable: process.env.NODE_ENV === 'development',
@@ -68,7 +70,9 @@ module.exports = withPWA({
 
     return config;
   },
-});
+};
+
+module.exports = withMDX(withPWA(nextConfig));
 
 function patchWasmModuleImport(config, isServer) {
   config.experiments = Object.assign(config.experiments || {}, {

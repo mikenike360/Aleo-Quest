@@ -1,0 +1,218 @@
+---
+id: "how-it-works"
+title: "How Aleo Actually Works"
+summary: "The tech behind private payments"
+ctaLabel: "Next: Real Examples"
+ctaHref: "/learn/use-cases"
+---
+
+# Let's Build a Private Payment
+
+Forget the theory for a second. Let's walk through what actually happens when you send money on Aleo.
+
+**Scenario:** You want to send 50 ALEO tokens to your friend.
+
+## Step 1: Your Secret Records
+
+On Aleo, your tokens aren't just a number in a database. They're **encrypted records** that only you can see.
+
+Your wallet might show:
+```
+Balance: 100 ALEO
+```
+
+But on the blockchain, it's stored as an encrypted record:
+```
+Record #4582 (encrypted)
+Owner: [your address]
+Amount: [encrypted: only you can decrypt]
+```
+
+Nobody else can see your balance. Not even the network validators.
+
+## Step 2: Create the Transaction (Off-Chain)
+
+Here's where it gets cool. You don't send the transaction directly to the blockchain.
+
+**On your local computer, you:**
+
+<div className="my-6 space-y-4">
+  <div className="overflow-hidden rounded-xl border border-blue-500/30 bg-gray-900/80 backdrop-blur-sm">
+    <div className="border-b border-blue-500/20 bg-blue-500/10 px-5 py-3">
+      <div className="font-mono text-xs text-blue-400">1. input-record.dat</div>
+    </div>
+    <div className="p-5">
+      <p className="font-mono text-sm font-semibold text-white mb-3">Take your existing record:</p>
+      <div className="space-y-1.5 font-mono text-xs text-gray-300">
+        <div>Record #4582 (encrypted)</div>
+        <div>Balance: <span className="text-blue-300">100 ALEO</span></div>
+        <div>Owner: You</div>
+      </div>
+    </div>
+  </div>
+
+  <div className="overflow-hidden rounded-xl border border-purple-500/30 bg-gray-900/80 backdrop-blur-sm">
+    <div className="border-b border-purple-500/20 bg-purple-500/10 px-5 py-3">
+      <div className="font-mono text-xs text-purple-400">2. output-records.dat</div>
+    </div>
+    <div className="p-5">
+      <p className="font-mono text-sm font-semibold text-white mb-3">Split into two new records:</p>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div className="rounded-lg border border-gray-700 bg-gray-800/50 p-3 font-mono text-xs">
+          <div className="text-gray-400 mb-1">Record A</div>
+          <div className="text-green-300">50 ALEO → Friend</div>
+        </div>
+        <div className="rounded-lg border border-gray-700 bg-gray-800/50 p-3 font-mono text-xs">
+          <div className="text-gray-400 mb-1">Record B</div>
+          <div className="text-cyan-300">50 ALEO → You (change)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div className="overflow-hidden rounded-xl border border-green-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-green-500/5">
+    <div className="border-b border-green-500/20 bg-green-500/10 px-5 py-3">
+      <div className="font-mono text-xs text-green-400">3. proof.zk</div>
+    </div>
+    <div className="p-5">
+      <p className="font-mono text-sm font-semibold text-white mb-3">Generate a proof that shows:</p>
+      <div className="space-y-2 font-mono text-sm">
+        <div className="flex items-center gap-2 text-green-300">
+          <span className="text-green-500">✓</span>
+          <span>Math is correct (100 = 50 + 50)</span>
+        </div>
+        <div className="flex items-center gap-2 text-green-300">
+          <span className="text-green-500">✓</span>
+          <span>You own the input record</span>
+        </div>
+        <div className="flex items-center gap-2 text-green-300">
+          <span className="text-green-500">✓</span>
+          <span>No double-spending</span>
+        </div>
+      </div>
+      <div className="mt-4 pt-3 border-t border-green-500/20 font-mono text-xs text-gray-400">
+        <strong className="text-green-400">Hidden:</strong> amounts, balances, history, everything!
+      </div>
+    </div>
+  </div>
+</div>
+
+## Step 3: Submit the Proof (On-Chain)
+
+Your proof (just a few hundred bytes) goes to the Aleo blockchain.
+
+<div className="my-6 overflow-hidden rounded-xl border border-cyan-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-cyan-500/5">
+  <div className="border-b border-cyan-500/20 bg-cyan-500/10 px-5 py-3">
+    <div className="font-mono text-xs text-cyan-400">network-validation.log</div>
+  </div>
+  <div className="p-5">
+    <div className="mb-4">
+      <p className="font-mono text-sm text-white mb-2">
+        <span className="text-cyan-400">→</span> You submit: Proof (534 bytes)
+      </p>
+    </div>
+    
+    <p className="font-mono text-sm font-semibold text-purple-300 mb-3">Network validators check:</p>
+    <div className="space-y-2 font-mono text-sm mb-4">
+      <div className="flex items-center gap-2 text-green-300">
+        <span className="text-green-500">✓</span>
+        <span>Is the math valid?</span>
+      </div>
+      <div className="flex items-center gap-2 text-green-300">
+        <span className="text-green-500">✓</span>
+        <span>Are the input records unspent?</span>
+      </div>
+      <div className="flex items-center gap-2 text-green-300">
+        <span className="text-green-500">✓</span>
+        <span>Does it follow program rules?</span>
+      </div>
+    </div>
+
+    <div className="rounded-lg border border-green-500/50 bg-green-500/10 p-4 text-center mb-4">
+      <p className="font-mono text-base font-bold text-green-300">✓ TRANSACTION ACCEPTED</p>
+    </div>
+
+    <div className="pt-3 border-t border-cyan-500/20 space-y-2 font-mono text-xs">
+      <div className="text-gray-400">
+        <span className="text-red-500">🗑️</span> Old Record #4582 → Marked as SPENT
+      </div>
+      <div className="text-gray-400">
+        <span className="text-green-500">🔒</span> New Record (Friend) → CREATED (encrypted)
+      </div>
+      <div className="text-gray-400">
+        <span className="text-cyan-500">🔒</span> New Record (You) → CREATED (encrypted)
+      </div>
+    </div>
+  </div>
+</div>
+
+<Callout type="success" title="The Result">
+  Total on-chain data: **Just the proof** (a few hundred bytes). The network has NO IDEA about amounts, balances, or who's transacting. Your privacy is preserved!
+</Callout>
+
+## The Key Insight
+
+Traditional blockchain: **Do everything publicly on-chain**
+- Everyone sees everything
+- Network processes every transaction
+- Slow and exposed
+
+Aleo: **Compute privately off-chain, prove publicly on-chain**
+- You compute locally
+- Network only verifies proofs
+- Fast and private
+
+It's like showing your work vs. showing the answer. Aleo shows the answer (proof) without showing the work (your private data).
+
+<Callout type="success" title="The Breakthrough">
+  By moving computation off-chain and verification on-chain, Aleo achieves both privacy AND scalability. Traditional blockchains can't do this.
+</Callout>
+
+## Why This Matters
+
+This architecture enables things that were impossible before:
+
+**Private Payments**
+- Companies can do payroll on-chain
+- Banks can use blockchain for customer accounts
+- You can transact without exposing your finances
+
+**Scalability**
+- Your computer does the hard work
+- The network only checks tiny proofs
+- No congestion, low fees
+
+**Programmability**  
+- Write smart contracts in Leo
+- Build any private app you can imagine
+- Full blockchain capabilities with privacy
+
+<div data-quiz>
+<Quiz
+  stepId="how-it-works"
+  question="What makes Aleo transactions private?"
+  options={[
+    {
+      id: "a",
+      text: "The transactions are encrypted",
+      isCorrect: false,
+      explanation: "Encryption helps, but the key is WHERE computation happens."
+    },
+    {
+      id: "b",
+      text: "Programs execute off-chain and prove correctness with ZK proofs",
+      isCorrect: true,
+      explanation: "Exactly! Off-chain execution keeps data private, while ZK proofs let the network verify correctness without seeing the data."
+    },
+    {
+      id: "c",
+      text: "Only miners can see the transaction details",
+      isCorrect: false,
+      explanation: "Not quite. The goal is that NO ONE can see your private data, not even miners."
+    }
+  ]}
+/>
+</div>
+
+Ready to see what people are actually building?
+

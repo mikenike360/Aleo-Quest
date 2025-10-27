@@ -1,0 +1,191 @@
+---
+id: "use-cases"
+title: "Real Examples"
+summary: "Privacy-preserving applications in action"
+ctaLabel: "Next: What's Next"
+ctaHref: "/learn/whats-next"
+---
+
+# Real Applications Built on Aleo
+
+Aleo's privacy guarantees enable real-world applications that were impossible on transparent blockchains. Here are live projects in the Aleo ecosystem.
+
+## 💰 Payments
+
+**The future of payments demands both privacy and compliance.** Aleo safeguards user data while meeting regulations—empowering use cases like global payroll and cross-border payments.
+
+### [Request Finance](https://request.finance/) →
+A Web3 finance platform **processing billions in payments**, now exploring Aleo for enhanced privacy in payroll and vendor payments while keeping financial information secure and confidential.
+
+**Use cases:**
+- 🏢 Private payroll processing
+- 💼 Confidential vendor payments  
+- 🌍 Cross-border business transactions
+- 📊 Secure financial management
+
+<Callout type="success" title="Why Privacy Matters for Payments">
+  Traditional blockchains expose every salary, invoice, and business transaction. With Aleo, companies can use blockchain for payments while protecting sensitive financial data.
+</Callout>
+
+## 🆔 Identity & Authentication
+
+**Aleo drives the future of digital identity** with secure authentication and protection from mass data leaks. Its flexible design supports use cases from online age assurance to zero-knowledge digital ID requirements.
+
+### [Aleo Name Service (ANS)](https://www.aleonames.id/) →
+A name registrar on the Aleo Network that transforms complex addresses into **confidential, easily memorable names**, simplifying and securing interactions.
+
+### [zPass](https://www.zpass.org/) →
+A privacy-focused solution that allows users to **prove identity information to third parties securely**, using pre-verified documents and digital signatures without revealing more personal information than necessary.
+
+**Use cases:**
+- ✅ Age verification without revealing birthdate
+- 🎓 Credential verification without full transcripts
+- 🔐 KYC/AML compliance with minimal data exposure
+- 👤 Selective disclosure of identity attributes
+
+## 🎮 Gaming
+
+**Aleo enables provable fairness and privacy**—players can own assets, transact securely, and maintain confidentiality without compromising verifiability.
+
+### [Puzzle Arcade](https://puzzles.arcade/) →
+Building the **first onchain world arcade** where people can play NYT-style games. Their wallet-native distribution with reward mechanics is only possible with zero-knowledge privacy and scalability.
+
+**Use cases:**
+- 🎲 Provably fair randomness
+- 🃏 Hidden game state (poker, strategy games)
+- 🏆 Private leaderboards with verifiable scores
+- 💎 Confidential in-game assets
+
+## 💱 DeFi
+
+**Private-by-default peer-to-peer financial services** enabling open, fair markets while ensuring user privacy and regulatory compliance.
+
+### [Arcane Finance](https://www.arcane.finance/) →
+A **privacy-centric decentralized exchange on Aleo** featuring concentrated liquidity AMM and RFQ (Request for Quote) mechanisms. Fully confidential swaps with **MEV protection** and zero slippage—combining the best of DEX privacy and CEX efficiency.
+
+### [Pondo](https://pondo.io/) →
+Liquid Staking Protocol allows users to **stake their Aleo Tokens** to strengthen the network with easy integrations and low transaction fees.
+
+### [Verulink](https://verulink.io/) →
+An **ETH, USDC, and USDT-native bridge** between Ethereum and the Aleo Network, enabling private cross-chain transfers.
+
+**Use cases:**
+- 🔄 Private DEX trading without front-running
+- 💰 Confidential lending protocols
+- 📊 Hidden portfolio management
+- 🌉 Anonymous cross-chain bridges
+
+## 🤝 Developer Tools & Services
+
+**Zero-knowledge infrastructure for trustless collaboration** enables developers and businesses to work together securely without revealing sensitive information.
+
+### [zKontract](https://zkontract.app/) →
+A **zero-knowledge bounty board live on Aleo Mainnet** that enables anonymous and verifiable collaboration between bounty posters and developers. Post jobs, submit proposals, and manage rewards—all with complete privacy.
+
+**Use cases:**
+- 🛠️ Anonymous freelance work
+- 💼 Private project proposals
+- 🔐 Secure escrow for contract work
+- 📁 Confidential file sharing
+
+### [ZK Escrow](https://www.zkescrow.app/) →
+A **trustless escrow service on Aleo** that securely holds funds between parties using zero-knowledge proofs. No intermediaries, no trust required—just cryptographic guarantees.
+
+**Use cases:**
+- 💰 Peer-to-peer transactions
+- 🤝 Service agreements
+- 🏪 Private marketplace payments
+- ⚡ Instant settlement without revealing balances
+
+<Callout type="info" title="Built by the Community">
+  Both zKontract and ZK Escrow are [open-source projects](https://github.com/mikenike360) built by VenomLabs, demonstrating how developers can create practical privacy-preserving applications on Aleo.
+</Callout>
+
+<div className="my-6 overflow-hidden rounded-xl border border-purple-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-purple-500/5">
+  <div className="border-b border-purple-500/20 bg-purple-500/10 px-5 py-3">
+    <div className="font-mono text-xs text-purple-400">selective-disclosure.diagram</div>
+  </div>
+  <div className="p-5">
+    {/* Your Data */}
+    <div className="rounded-lg border border-gray-700 bg-gray-800/50 p-4 mb-4">
+      <p className="font-mono text-xs text-gray-400 mb-2">YOUR DATA:</p>
+      <div className="space-y-1 font-mono text-xs text-gray-300">
+        <div>Name: Alice • Age: 25 • Salary: $85k • Address: 123 Main • Medical: [...]</div>
+      </div>
+    </div>
+
+    {/* Arrow */}
+    <div className="text-center py-2">
+      <div className="font-mono text-xs text-purple-400">↓ Zero-Knowledge Proof ↓</div>
+    </div>
+
+    {/* What They See */}
+    <div className="rounded-lg border border-green-500/50 bg-green-500/10 p-4 text-center">
+      <p className="font-mono text-xs text-gray-400 mb-2">WHAT THEY SEE:</p>
+      <div className="inline-flex items-center gap-2 rounded bg-green-500/20 px-3 py-1.5">
+        <span className="text-base">✓</span>
+        <span className="font-mono text-sm font-bold text-green-200">Age ≥ 18</span>
+      </div>
+      <p className="font-mono text-xs text-gray-500 mt-2">(Everything else hidden)</p>
+    </div>
+  </div>
+  <div className="border-t border-purple-500/20 bg-gray-800/50 px-5 py-3">
+    <p className="font-mono text-xs text-gray-400">
+      <span className="text-gray-600">&gt;</span> Reveal only what's necessary
+    </p>
+  </div>
+</div>
+
+## The Common Thread
+
+All these applications share a core principle: **prove properties about data without revealing the data itself**.
+
+Whether it's proving:
+- ✅ Sufficient funds for a payment (without revealing balance)
+- ✅ Age eligibility (without revealing birthdate)
+- ✅ Game fairness (without revealing random seeds)
+- ✅ Identity verification (without exposing personal details)
+
+Aleo makes privacy practical for real-world use cases.
+
+## What Can YOU Build?
+
+The Aleo ecosystem is rapidly growing with applications in:
+- 💼 **Business & Enterprise** — Payroll, vendor payments, supply chain
+- 🏦 **Financial Services** — Private banking, compliant DeFi
+- 🎯 **Consumer Apps** — Gaming, social, identity
+- 🏛️ **Governance** — Private voting, DAO management
+
+**Ready to build?** Check out the [Aleo ecosystem](https://aleo.org/ecosystem) for more projects and developer resources.
+
+<div data-quiz>
+<Quiz
+  stepId="use-cases"
+  question="Which use case is IMPOSSIBLE on transparent blockchains but enabled by Aleo?"
+  options={[
+    {
+      id: "a",
+      text: "Sending tokens to a friend",
+      isCorrect: false,
+      explanation: "Basic transfers work on any blockchain. The question is about what's uniquely possible with privacy."
+    },
+    {
+      id: "b",
+      text: "Private voting where votes are secret but results are verifiable",
+      isCorrect: true,
+      explanation: "Perfect! Private voting requires hiding individual votes while proving the final count is correct—impossible without zero-knowledge proofs."
+    },
+    {
+      id: "c",
+      text: "Creating NFTs",
+      isCorrect: false,
+      explanation: "NFTs can exist on any blockchain. Privacy enables new capabilities like private ownership verification."
+    }
+  ]}
+/>
+</div>
+
+<Callout type="tip" title="Join the Ecosystem">
+  Join the Aleo Discord community to connect with builders, get support, and showcase your project.
+</Callout>
+

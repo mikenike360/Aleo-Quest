@@ -1,0 +1,287 @@
+---
+id: "zk"
+title: "The Magic Trick"
+summary: "How to prove something without revealing anything"
+ctaLabel: "Next: How Aleo Works"
+ctaHref: "/learn/how-it-works"
+---
+
+# The Magic Trick
+
+Let me show you something that sounds impossible.
+
+**I'm going to prove I'm over 21 years old—without telling you my exact age, birthdate, or showing you my ID.**
+
+Sounds like magic? It's not. It's mathematics.
+
+## The Problem First
+
+You walk into a store to buy something age-restricted. The cashier asks for your ID.
+
+<div className="my-6 overflow-hidden rounded-xl border border-cyan-500/30 bg-gray-900/80 backdrop-blur-sm">
+  <div className="border-b border-cyan-500/20 bg-cyan-500/10 px-4 py-2.5">
+    <div className="font-mono text-xs text-cyan-400">😰 what-they-need.txt</div>
+  </div>
+  <div className="p-5 text-center">
+    <p className="text-2xl font-bold text-white mb-2">Are you ≥ 21?</p>
+    <p className="font-mono text-xs text-gray-400">Just YES or NO. That's all.</p>
+  </div>
+</div>
+
+<div className="my-6 overflow-hidden rounded-xl border border-yellow-500/30 bg-gray-900/80 backdrop-blur-sm">
+  <div className="border-b border-yellow-500/20 bg-yellow-500/10 px-4 py-2.5">
+    <div className="font-mono text-xs text-yellow-400">📋 what-you-reveal.txt</div>
+  </div>
+  <div className="p-5">
+    <div className="space-y-2 font-mono text-xs">
+      <div className="text-yellow-300">✗ Full name</div>
+      <div className="text-yellow-300">✗ Exact birthdate</div>
+      <div className="text-yellow-300">✗ Home address</div>
+      <div className="text-yellow-300">✗ ID number</div>
+      <div className="text-yellow-300">✗ Photo</div>
+    </div>
+    <p className="pt-3 border-t border-yellow-500/20 mt-3 font-mono text-xs text-gray-400">Way more than necessary!</p>
+  </div>
+</div>
+
+**The cashier only needs one bit of information: YES or NO.**
+
+You're handing over your entire identity just to prove one simple fact.
+
+## Enter Zero-Knowledge
+
+What if you could prove "I'm ≥ 21" without revealing anything else?
+
+<div className="my-6 inline-block overflow-hidden rounded-xl border border-green-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-green-500/5">
+  <div className="border-b border-green-500/20 bg-green-500/10 px-4 py-2">
+    <div className="font-mono text-xs text-green-400">✅ zero-knowledge.zk</div>
+  </div>
+  <div className="p-4">
+    <div className="flex items-center gap-2 mb-3">
+      <div className="flex h-7 w-7 items-center justify-center rounded bg-green-600">
+        <span className="text-base">✓</span>
+      </div>
+      <span className="font-mono text-base font-bold text-green-200">Age ≥ 21</span>
+    </div>
+    <div className="font-mono text-xs text-gray-400 mb-3 pl-9">That's ALL they see</div>
+    <div className="space-y-1 font-mono text-xs text-gray-500 pt-3 border-t border-green-500/20">
+      <div>✗ Name, exact age, address...</div>
+      <div>✗ Everything else stays hidden</div>
+    </div>
+  </div>
+</div>
+
+**This is a zero-knowledge proof.** You proved what was necessary. Nothing more.
+
+## How Does This Actually Work?
+
+Let me show you with a simple thought experiment.
+
+### The Password Box Challenge
+
+<div className="my-6 overflow-hidden rounded-xl border border-cyan-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-cyan-500/5">
+  <div className="border-b border-cyan-500/20 bg-cyan-500/10 px-5 py-3">
+    <div className="font-mono text-xs text-cyan-400">challenge-setup.txt</div>
+  </div>
+  <div className="p-5">
+    <p className="font-mono text-sm font-semibold text-white mb-4">The Setup:</p>
+    <div className="space-y-3 font-mono text-sm text-gray-300">
+      <div className="flex items-start gap-2">
+        <span className="text-cyan-400">→</span>
+        <p>I have a password-locked box</p>
+      </div>
+      <div className="flex items-start gap-2">
+        <span className="text-cyan-400">→</span>
+        <p>You claim to know the password</p>
+      </div>
+      <div className="flex items-start gap-2">
+        <span className="text-cyan-400">→</span>
+        <p>I want proof—but I DON'T want the password itself</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+**Here's the clever protocol:**
+
+<div className="my-6 space-y-4">
+  <div className="overflow-hidden rounded-xl border border-blue-500/30 bg-gray-900/80 backdrop-blur-sm">
+    <div className="flex items-center gap-3 border-b border-blue-500/20 bg-blue-500/10 px-5 py-3">
+      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-blue-600 font-mono text-sm font-bold">1</div>
+      <div className="font-mono text-xs text-blue-400">step-1.txt</div>
+    </div>
+    <div className="p-5">
+      <p className="font-mono text-sm font-semibold text-white mb-2">I put a random number in the box</p>
+      <p className="font-mono text-xs text-gray-400 leading-relaxed">
+        Let's say I write "42" on a piece of paper and lock it in the box
+      </p>
+    </div>
+  </div>
+  
+  <div className="overflow-hidden rounded-xl border border-purple-500/30 bg-gray-900/80 backdrop-blur-sm">
+    <div className="flex items-center gap-3 border-b border-purple-500/20 bg-purple-500/10 px-5 py-3">
+      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-purple-600 font-mono text-sm font-bold">2</div>
+      <div className="font-mono text-xs text-purple-400">step-2.txt</div>
+    </div>
+    <div className="p-5">
+      <p className="font-mono text-sm font-semibold text-white mb-2">You unlock it and tell me what's inside</p>
+      <p className="font-mono text-xs text-gray-400 leading-relaxed">
+        You open the box and say "It's 42!"
+      </p>
+    </div>
+  </div>
+  
+  <div className="overflow-hidden rounded-xl border border-green-500/30 bg-gray-900/80 backdrop-blur-sm">
+    <div className="flex items-center gap-3 border-b border-green-500/20 bg-green-500/10 px-5 py-3">
+      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-green-600 font-mono text-sm font-bold">3</div>
+      <div className="font-mono text-xs text-green-400">step-3.txt</div>
+    </div>
+    <div className="p-5">
+      <p className="font-mono text-sm font-semibold text-white mb-2">You're correct!</p>
+      <p className="font-mono text-xs text-gray-400 leading-relaxed">
+        I verify: yes, the paper says 42. You knew the password!
+      </p>
+    </div>
+  </div>
+</div>
+
+**Why this proves you know the password:**
+
+<div className="my-6 grid gap-6 md:grid-cols-2">
+  <div className="overflow-hidden rounded-xl border border-red-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-red-500/5">
+    <div className="border-b border-red-500/20 bg-red-500/10 px-5 py-3">
+      <div className="font-mono text-xs text-red-400">😰 without-password.log</div>
+    </div>
+    <div className="p-5">
+      <p className="font-mono text-sm font-bold text-red-300 mb-3">If you DON'T know it:</p>
+      <div className="space-y-2 font-mono text-sm text-gray-300">
+        <div className="flex items-start gap-2">
+          <span className="text-red-500">✗</span>
+          <p>You can't open the box</p>
+        </div>
+        <div className="flex items-start gap-2">
+          <span className="text-red-500">✗</span>
+          <p>You can't tell me the number</p>
+        </div>
+        <div className="flex items-start gap-2">
+          <span className="text-red-500">✗</span>
+          <p className="text-red-400 font-bold">You fail the test!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div className="overflow-hidden rounded-xl border border-green-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-green-500/5">
+    <div className="border-b border-green-500/20 bg-green-500/10 px-5 py-3">
+      <div className="font-mono text-xs text-green-400">✅ with-password.log</div>
+    </div>
+    <div className="p-5">
+      <p className="font-mono text-sm font-bold text-green-300 mb-3">If you DO know it:</p>
+      <div className="space-y-2 font-mono text-sm text-gray-300">
+        <div className="flex items-start gap-2">
+          <span className="text-green-500">✓</span>
+          <p>You unlock the box</p>
+        </div>
+        <div className="flex items-start gap-2">
+          <span className="text-green-500">✓</span>
+          <p>You tell me "It's 42!"</p>
+        </div>
+        <div className="flex items-start gap-2">
+          <span className="text-green-500">✓</span>
+          <p className="text-green-400 font-bold">Correct! You pass!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+**One time could be luck.** Maybe you guessed the number.
+
+**But we do this 20 times** with different random numbers. Every time, you tell me the correct number.
+
+<div className="my-6 overflow-hidden rounded-xl border border-yellow-500/30 bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-yellow-500/5">
+  <div className="border-b border-yellow-500/20 bg-yellow-500/10 px-5 py-3">
+    <div className="font-mono text-xs text-yellow-400">probability.calc</div>
+  </div>
+  <div className="p-6 text-center">
+    <p className="mb-4 font-mono text-sm text-yellow-300">Odds of guessing 20 random numbers correctly?</p>
+    <div className="inline-block rounded-lg border border-yellow-500/50 bg-yellow-500/10 px-6 py-4 mb-3">
+      <p className="text-4xl font-bold text-white mb-2">≈ 0%</p>
+      <p className="font-mono text-xs text-yellow-200">Essentially impossible</p>
+    </div>
+    <p className="font-mono text-xs text-gray-400">
+      (Less than 0.0000000001% chance)
+    </p>
+  </div>
+</div>
+
+**I'm now convinced you know the password.**
+
+But here's the magic: **You never told me what the password actually is!**
+
+You only told me what was INSIDE the boxes (the random numbers). The password itself stayed secret.
+
+<Callout type="success" title="That's Zero-Knowledge">
+  I learned the FACT (you know the password) but learned nothing about the VALUE (what the password is).
+</Callout>
+
+**This protocol proved your knowledge without revealing your secret.** That's the essence of zero-knowledge proofs.
+
+## From Password Boxes to Blockchains
+
+The same principle applies to money—just swap "password" for "private key" and "random number" for "transaction details".
+
+**On Bitcoin/Ethereum:**
+- "I'm sending you $100"
+- Everyone sees: sender, receiver, amount, your entire balance history
+- It's like publishing your bank statement on a billboard
+
+**On Aleo with Zero-Knowledge:**
+- "I'm proving I CAN send you $100"
+- Everyone sees: ✓ transaction verified
+- Nobody sees: your balance, the amount, who you're paying, your history
+
+The network knows the transaction is mathematically valid. But your financial privacy is preserved.
+
+## Why This Changes Everything
+
+With zero-knowledge proofs, you can build applications that are:
+
+- **Private** — Your data stays yours
+- **Compliant** — You can prove you followed the rules without exposing details
+- **Verifiable** — Everyone can check the proof is valid
+
+You can prove:
+- You paid your taxes (without showing your income)
+- You're creditworthy (without sharing your entire financial history)
+- You're eligible for a service (without revealing your identity)
+- A transaction is valid (without exposing the amounts)
+
+<div data-quiz>
+<Quiz
+  stepId="zk"
+  question="What makes a proof 'zero-knowledge'?"
+  options={[
+    {
+      id: "a",
+      text: "The proof is very small in size",
+      isCorrect: false,
+      explanation: "Size is a nice benefit, but not what makes it zero-knowledge!"
+    },
+    {
+      id: "b",
+      text: "The verifier learns ONLY that the statement is true",
+      isCorrect: true,
+      explanation: "Exactly! Zero-knowledge means revealing the fact, not the data behind it."
+    },
+    {
+      id: "c",
+      text: "The proof is encrypted",
+      isCorrect: false,
+      explanation: "ZK proofs use math, not encryption. They prove properties without revealing values."
+    }
+  ]}
+/>
+</div>
+
+This is the foundation that makes Aleo special. Let's see how it actually works under the hood.

@@ -64,11 +64,11 @@ export function StepClient({
       router.push(`/learn/${nextStep.id}`);
       trackEvent('learn_step_complete', { step: slug });
     } else {
-      // Last step - mark as complete and redirect
+      // Last step - mark as complete and redirect back to learn index
       completeStep(slug);
       soundManager.playLevelUpSound();
       trackEvent('learn_complete');
-      router.push('/quest');
+      router.push('/learn');
     }
   };
 

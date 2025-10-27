@@ -66,7 +66,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex-1 text-center">
                   <AleoLogo colorScheme="green" size="small" />
-                  <TerminalBreadcrumb currentPage="home" colorScheme="green" />
+                  <TerminalBreadcrumb currentPage="" colorScheme="green" />
                 </div>
               </div>
               <div className="px-2 sm:px-4 py-2 font-mono text-xs text-gray-400 text-center">

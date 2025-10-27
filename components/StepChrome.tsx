@@ -138,7 +138,7 @@ export function StepChrome({
                   </div>
                   <div className={`text-sm truncate w-full ${canProceed ? 'text-cyan-300' : 'text-gray-500'}`}>
                     {canProceed
-                      ? nextStep ? nextStep.title : 'Complete & Start Quest'
+                      ? nextStep ? nextStep.title : 'Complete'
                       : 'Complete quiz to unlock'}
                   </div>
                 </button>

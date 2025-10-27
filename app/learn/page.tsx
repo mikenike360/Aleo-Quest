@@ -215,7 +215,7 @@ export default function LearnPage() {
                             <div>
                               <CardTitle className="text-lg">{step.title}</CardTitle>
                               <CardDescription className="text-sm">
-                                {step.description}
+                                {step.summary}
                               </CardDescription>
                             </div>
                           </div>
@@ -242,7 +242,7 @@ export default function LearnPage() {
                       <CardContent>
                         <div className="flex items-center justify-between">
                           <div className="text-sm text-gray-400">
-                            {step.estimatedTime}
+                            Step {step.order} of {learnSteps.length}
                           </div>
                           {isAvailable && (
                             <Link href={`/learn/${step.id}`}>

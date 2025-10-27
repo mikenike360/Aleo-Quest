@@ -14,9 +14,17 @@ const components = {
 };
 
 export async function generateStaticParams() {
-  const slugs = getAllStepSlugs();
-  return slugs.map((slug) => ({ slug }));
+  try {
+    const slugs = getAllStepSlugs();
+    console.log(`Generating static params for ${slugs.length} learn pages:`, slugs);
+    return slugs.map((slug) => ({ slug }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
 }
+
+export const dynamicParams = false; // Force static generation
 
 export default function StepPage({ params }: { params: { slug: string } }) {
   const stepContent = getStepContent(params.slug);

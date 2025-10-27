@@ -4,20 +4,40 @@ import matter from 'gray-matter';
 
 // Get the content directory - works in both dev and production
 function getContentDirectory() {
-  const possiblePaths = [
-    path.join(process.cwd(), 'content', 'learn'),
-    path.join(process.cwd(), '..', 'content', 'learn'),
-    '/home/mikenike/Aleo_Quest/aleo-starter-template/content/learn',
-  ];
+  // During build, files are in .next/server folder, so we need to find the actual project root
+  const libDir = __dirname;
   
-  for (const dir of possiblePaths) {
-    if (fs.existsSync(dir)) {
-      return dir;
-    }
+  // If we're in .next folder, remove .next from the path to get to project root
+  let projectRoot = libDir;
+  if (libDir.includes('.next')) {
+    projectRoot = libDir.split('.next')[0];
+  } else if (libDir.includes('node_modules')) {
+    // If somehow we're in node_modules, go up to find project root
+    projectRoot = libDir.replace(/node_modules.*/, '');
   }
   
-  // Default to first path if none exist
-  return possiblePaths[0];
+  // Look for content/learn relative to project root
+  const contentPath = path.join(projectRoot, 'content', 'learn');
+  
+  if (fs.existsSync(contentPath)) {
+    console.log(`✓ Found content directory at: ${contentPath}`);
+    return contentPath;
+  }
+  
+  // If that didn't work, try the working directory
+  const cwdPath = path.join(process.cwd(), 'content', 'learn');
+  if (fs.existsSync(cwdPath)) {
+    console.log(`✓ Found content directory at (cwd): ${cwdPath}`);
+    return cwdPath;
+  }
+  
+  console.warn(`⚠ Could not find content directory`);
+  console.warn(`Lib dir: ${libDir}`);
+  console.warn(`Project root: ${projectRoot}`);
+  console.warn(`CWD: ${process.cwd()}`);
+  
+  // Return the expected path anyway
+  return contentPath;
 }
 
 const contentDirectory = getContentDirectory();

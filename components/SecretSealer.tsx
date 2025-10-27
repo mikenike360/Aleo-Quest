@@ -94,11 +94,11 @@ export function SecretSealer({ prompt, minLength, onSecretSealed }: SecretSealer
       <TerminalPanel colorScheme="cyan" title="VAULT_COMMIT">
         <div className="space-y-3">
           {/* Inline Vault and Input */}
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
             {/* Smaller vault icon */}
             <motion.div
               ref={vaultRef}
-              className="relative w-16 h-16 border-2 rounded-lg flex items-center justify-center cursor-pointer bg-black flex-shrink-0"
+              className="relative w-12 h-12 sm:w-16 sm:h-16 border-2 rounded-lg flex items-center justify-center cursor-pointer bg-black flex-shrink-0"
               style={{ 
                 transform: `rotate(${vaultRotation}deg)`,
                 borderColor: magicalAura ? '#22D3EE' : isSealed ? '#10B981' : '#06B6D4'
@@ -119,10 +119,11 @@ export function SecretSealer({ prompt, minLength, onSecretSealed }: SecretSealer
               whileTap={{ scale: 0.95 }}
             >
               {/* Terminal symbols around the vault */}
-              <div className="absolute inset-0">
+              <div className="absolute inset-0 flex items-center justify-center scale-90 sm:scale-100">
                 {selectedRunes.map((symbol, index) => {
                   const angle = (index * 360) / selectedRunes.length;
-                  const radius = 25;
+                  // Responsive radius: Mobile: 48px box uses ~15px radius, Desktop: 64px box uses ~20px radius
+                  const radius = 20;
                   const x = Math.cos((angle * Math.PI) / 180) * radius;
                   const y = Math.sin((angle * Math.PI) / 180) * radius;
                   
@@ -179,7 +180,7 @@ export function SecretSealer({ prompt, minLength, onSecretSealed }: SecretSealer
             </motion.div>
 
             {/* Input field */}
-            <div className="flex-1">
+            <div className="flex-1 w-full min-w-0">
               <TerminalInput
                 value={secret}
                 onChange={handleSecretChange}

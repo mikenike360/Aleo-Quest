@@ -28,6 +28,8 @@ This application provides three complementary ways to explore Aleo and zero-know
 - Real-time proof generation via mock APIs
 - Badge collection and progress tracking
 - Story-driven narrative with explainers
+- Interactive mini-games optimized for mobile
+- Responsive quest completion screen
 
 ### Developer Playground
 - Monaco editor integration (placeholder for Leo code)
@@ -43,8 +45,11 @@ This application provides three complementary ways to explore Aleo and zero-know
 - ✅ MDX for content management
 - ✅ Mock proof API endpoints
 - ✅ Plausible analytics (optional)
-- ✅ Mobile-first responsive design
+- ✅ Fully responsive mobile-first design
+- ✅ Optimized for touch interfaces (44px+ touch targets)
 - ✅ Accessibility-friendly (keyboard nav, ARIA labels)
+- ✅ Responsive ASCII art logos
+- ✅ Adaptive image scaling
 
 ## 🚀 Quick Start
 
@@ -170,6 +175,20 @@ Three endpoints simulate real Aleo proof operations:
 - `POST /api/proofs/payment` — Private payment proof
 
 **TODO:** Replace with real Aleo SDK integration.
+
+## 📱 Mobile Optimization
+
+### Responsive Design Features
+- **Scaling ASCII Logos**: Logo automatically adjusts from 0.35rem (mobile) to 0.5rem (desktop)
+- **Adaptive Images**: Quest completion and stage images scale proportionally
+- **Touch-Optimized**: All interactive elements meet 44px minimum touch target
+- **Flexible Layouts**: Buttons and content stack appropriately on narrow screens
+- **Mobile-First**: Padding, spacing, and fonts optimized for small viewports
+
+### Tested Viewports
+- Mobile: 320px - 375px width
+- Tablet: 768px - 1024px width  
+- Desktop: 1280px+ width
 
 ## 🎨 Customization
 
@@ -307,6 +326,22 @@ Optimizations included:
 - Efficient state management
 - Server-side MDX compilation
 
+## 🏗️ Recent Improvements
+
+### Mobile Responsiveness (Latest)
+- ✅ Fixed ASCII logo overflow on mobile screens with responsive text sizing
+- ✅ Made quest completion image responsive (scales from 576px to fit any screen)
+- ✅ Improved button layouts to stack on mobile, side-by-side on desktop
+- ✅ Enhanced touch targets for all mini-games (coins, checkboxes, sliders)
+- ✅ Added responsive padding across all pages
+- ✅ Improved text wrapping in interactive terminal
+
+### Quest Enhancements
+- ✅ Larger "START ALEO QUEST" button
+- ✅ Removed privacy status bars from mini-games for cleaner UI
+- ✅ Quest completion screen with celebration image
+- ✅ Improved stage progression with better visual feedback
+
 ## 🤝 Contributing
 
 This template is open-source to help grow the Aleo ecosystem.
@@ -337,3 +372,12 @@ MIT License — free to use, modify, and share.
 ---
 
 **Ready to build privacy-first applications?** Start with `/learn` and complete the `/quest`! 🚀
+
+---
+
+### 📱 Mobile Testing
+
+Test the responsive design across devices:
+- Open Chrome DevTools (F12) → Toggle device toolbar
+- Test: 320px (iPhone SE), 375px (iPhone), 768px (Tablet), 1280px+ (Desktop)
+- Verify: No horizontal scrolling, touch targets ≥44px

@@ -36,10 +36,10 @@ export function Terminal({ title = 'aleo-quest.sh', children, glow = 'green', sh
       {/* Terminal Header */}
       <div className={`flex items-center justify-between border-b-2 px-4 py-3 ${headerColors[glow]}`}>
         <div className="flex items-center gap-2">
-          <div className="flex gap-1.5">
-            <div className="h-3 w-3 rounded-full bg-red-500" />
-            <div className="h-3 w-3 rounded-full bg-yellow-500" />
-            <div className="h-3 w-3 rounded-full bg-green-500" />
+          <div className="flex gap-1.5 font-mono text-xs">
+            <span className="text-red-400">[✕]</span>
+            <span className="text-yellow-400">[−]</span>
+            <span className="text-green-400">[□]</span>
           </div>
           <span className="ml-3 font-mono text-sm tracking-wider">{title}</span>
         </div>

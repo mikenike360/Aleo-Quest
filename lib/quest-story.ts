@@ -156,7 +156,7 @@ export const questStories = {
         type: 'narration',
         content: [
           '',
-          'GUARDIAN: "Good choice! Now, generate your proof.',
+          'GUARDIAN: "Good choice! Now, I will analyze your proof.',
           'This magical process will check your secret\'s length',
           'and give me a YES or NO answer—',
           'without ever showing me the secret itself..."'
@@ -164,12 +164,12 @@ export const questStories = {
       } as StoryBeat,
       {
         type: 'animation',
-        content: ['Analyzing secret...', 'Generating proof...']
+        content: ['Analyzing secret proof...']
       } as StoryBeat,
       {
         type: 'success',
         content: [
-          'Proof generated and verified!',
+          'Proof analyzed and verified!',
           '',
           'GUARDIAN: "Remarkable! I now know your secret is',
           'long enough—at least 6 characters—but I still',

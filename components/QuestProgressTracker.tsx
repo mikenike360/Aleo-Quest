@@ -34,7 +34,7 @@ export function QuestProgressTracker({
   className = '' 
 }: QuestProgressTrackerProps) {
   const progressPercent = Math.round((badges.length / 5) * 100);
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div className={`border-2 border-cyan-500 bg-black/90 p-2 sm:p-4 font-mono w-full max-w-full ${className}`}>

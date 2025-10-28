@@ -123,7 +123,7 @@ export const TerminalInput = forwardRef<HTMLInputElement, TerminalInputProps>(({
   const colors = TERMINAL_COLORS[colorScheme];
   
   return (
-    <div className={`relative ${className}`}>
+    <div className="relative">
       <div className="flex items-center">
         <span className="font-mono text-sm mr-2" style={{ color: colors.accent }}>
           {prompt}
@@ -139,7 +139,9 @@ export const TerminalInput = forwardRef<HTMLInputElement, TerminalInputProps>(({
           className={`
             flex-1 bg-transparent border-none outline-none font-mono text-sm
             placeholder-gray-500
+            focus:outline-none focus:ring-0 focus:border-none
             ${disabled ? 'text-gray-500' : ''}
+            ${className}
           `}
           style={{ 
             color: disabled ? '#6B7280' : colors.primary,

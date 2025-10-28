@@ -32,26 +32,27 @@ export function InteractiveTerminal() {
     help: () => `Available commands:
   help          - Show this help message
   ls            - List available sections
-  cd <section>  - Navigate to section (learn, quest)
+  cd <section>  - Navigate to section (home, learn, quest)
   whoami        - Show your progress
   clear         - Clear terminal history
   exit          - Close terminal`,
     
-    ls: () => `drwxr-xr-x  learn/     5 chapters   [EDUCATIONAL]
+    ls: () => `drwxr-xr-x  home/      main menu    [HOME]
+drwxr-xr-x  learn/     5 chapters   [EDUCATIONAL]
 drwxr-xr-x  quest/     5 stages     [GAMIFIED]`,
     
     cd: (args: string) => {
       const section = args.trim();
-      if (!section) return 'Usage: cd <section>\nAvailable sections: learn, quest';
+      if (!section) return 'Usage: cd <section>\nAvailable sections: home, learn, quest';
       
-      if (['learn', 'quest'].includes(section)) {
+      if (['learn', 'quest', 'home'].includes(section)) {
         setTimeout(() => {
-          router.push(`/${section}`);
+          router.push(section === 'home' ? '/' : `/${section}`);
         }, 500);
-        return `Navigating to /${section}...`;
+        return `Navigating to /${section === 'home' ? '' : section}...`;
       }
       
-      return `cd: ${section}: No such directory\nAvailable sections: learn, quest`;
+      return `cd: ${section}: No such directory\nAvailable sections: home, learn, quest`;
     },
     
     whoami: () => `User Progress Report:
@@ -145,21 +146,21 @@ drwxr-xr-x  quest/     5 stages     [GAMIFIED]`,
   }, []);
 
   return (
-    <div className="space-y-4 border-t border-cyan-500/30 pt-8 mt-8">
+    <div >
       {/* Section divider */}
-      <div className="flex items-center gap-4 mb-6">
+      {/* <div className="flex items-center gap-4 mb-6">
         <div className="flex-1 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
         <div className="font-mono text-xs text-cyan-400 px-4 py-1 border border-cyan-500/30 bg-cyan-500/5 rounded">
           INTERACTIVE_TERMINAL
         </div>
         <div className="flex-1 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
-      </div>
+      </div> */}
 
       {/* Welcome message */}
       <div className="space-y-2">
-        <TerminalText colorScheme="cyan" variant="accent" className="block">
+        {/* <TerminalText colorScheme="cyan" variant="accent" className="block">
           Welcome to the Aleo QuestTerminal
-        </TerminalText>
+        </TerminalText> */}
         <TerminalText colorScheme="cyan" variant="muted" className="block text-xs">
           Type 'help' for available commands
         </TerminalText>
@@ -201,7 +202,7 @@ drwxr-xr-x  quest/     5 stages     [GAMIFIED]`,
                   setCurrentInput(value);
                   // Play typing sound occasionally
                   if (value.length > 0 && value.length % 3 === 0) {
-                    soundManager.playTypingSound('normal');
+                    soundManager.playTypingSound();
                   }
                 }}
                 onKeyDown={handleKeyDown}
@@ -209,7 +210,7 @@ drwxr-xr-x  quest/     5 stages     [GAMIFIED]`,
                 disabled={isProcessing}
                 colorScheme="cyan"
                 prompt=""
-                className="w-full"
+                className="w-full border-0 focus:ring-0"
               />
         </div>
       </div>

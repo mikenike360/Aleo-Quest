@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -74,68 +74,83 @@ export default function HomePage() {
               </div>
               {/* Action Buttons - under the title */}
               <div className="px-4 py-2 border-t border-green-500/20">
-                <div className="flex justify-end gap-2">
-                  {/* Mute Button */}
-                  <button 
-                    onClick={() => {
-                      soundManager.toggleMute();
-                      soundManager.playClickSound();
-                    }}
-                    className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-green-400 hover:border-green-500 hover:bg-green-500/10 transition-all"
-                  >
-                    [{isAudioMuted ? 'UNMUTE' : 'MUTE'}]
-                  </button>
+                <div className="flex justify-between items-center gap-4">
+                  {/* Interactive Terminal - Left side */}
+                  <div className="flex-1 min-w-0">
+                    {bootComplete && <InteractiveTerminal />}
+                  </div>
+                  
+                  {/* Buttons - Right side */}
+                  <div className="flex gap-2 shrink-0">
+                    {/* Mute Button */}
+                    <button 
+                      onClick={() => {
+                        soundManager.toggleMute();
+                        soundManager.playClickSound();
+                      }}
+                      className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-green-400 hover:border-green-500 hover:bg-green-500/10 transition-all"
+                    >
+                      [{isAudioMuted ? 'UNMUTE' : 'MUTE'}]
+                    </button>
 
-                  {/* Reset Button */}
-                  {hasProgress && (
-                    <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
-                      <DialogTrigger asChild>
-                        <button className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-red-400 hover:border-red-500 hover:bg-red-500/10 transition-all">
-                          [RESET]
-                        </button>
-                      </DialogTrigger>
-                      <DialogContent className="bg-black border-2 border-green-500 text-green-400 font-mono">
-                        <DialogHeader>
-                          <DialogTitle className="text-lg font-bold text-green-400">[RESET ALL PROGRESS]</DialogTitle>
-                          <DialogDescription className="text-gray-300">
-                            Are you sure you want to reset all your progress? This will clear all your badges and learning progress.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <div className="my-4 rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-4">
-                          <p className="text-sm text-yellow-300">
-                            Current progress: <strong>{badges.length} badges earned, {completedSteps.length}/{learnSteps.length} lessons complete</strong>
-                          </p>
-                        </div>
-                        <DialogFooter>
-                          <Button
-                            variant="outline"
-                            onClick={() => setShowResetDialog(false)}
-                            className="border-gray-600 text-gray-300 hover:bg-gray-800"
-                          >
-                            [CANCEL]
-                          </Button>
-                          <Button
-                            variant="default"
-                            onClick={handleResetAll}
-                            className="bg-red-600 hover:bg-red-700"
-                          >
-                            <RotateCcw className="mr-2 h-4 w-4" />
-                            [RESET ALL]
-                          </Button>
-                        </DialogFooter>
-                      </DialogContent>
-                    </Dialog>
-                  )}
+                    {/* Reset Button */}
+                    {hasProgress && (
+                      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
+                        <DialogTrigger asChild>
+                          <button className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-red-400 hover:border-red-500 hover:bg-red-500/10 transition-all">
+                            [RESET]
+                          </button>
+                        </DialogTrigger>
+                        <DialogContent className="bg-black border-2 border-green-500 text-green-400 font-mono">
+                          <DialogHeader>
+                            <DialogTitle className="text-lg font-bold text-green-400">[RESET ALL PROGRESS]</DialogTitle>
+                            <DialogDescription className="text-gray-300">
+                              Are you sure you want to reset all your progress? This will clear all your badges and learning progress.
+                            </DialogDescription>
+                          </DialogHeader>
+                          <div className="my-4 rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-4">
+                            <p className="text-sm text-yellow-300">
+                              Current progress: <strong>{badges.length} badges earned, {completedSteps.length}/{learnSteps.length} lessons complete</strong>
+                            </p>
+                          </div>
+                          <DialogFooter>
+                            <Button
+                              variant="outline"
+                              onClick={() => setShowResetDialog(false)}
+                              className="border-gray-600 text-gray-300 hover:bg-gray-800"
+                            >
+                              [CANCEL]
+                            </Button>
+                            <Button
+                              variant="default"
+                              onClick={handleResetAll}
+                              className="bg-red-600 hover:bg-red-700"
+                            >
+                              <RotateCcw className="mr-2 h-4 w-4" />
+                              [RESET ALL]
+                            </Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
             {/* Boot Sequence */}
-            <BootSequence onComplete={handleBootComplete}>
+            {!bootComplete && (
+              <motion.div
+                key="boot-sequence"
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+              >
+                <BootSequence onComplete={handleBootComplete}>
 
-            </BootSequence>
-
-            {/* Interactive Command Prompt */}
-            {bootComplete && <InteractiveTerminal />}
+                </BootSequence>
+              </motion.div>
+            )}
 
             {/* Features Section */}
             {bootComplete && (
@@ -174,43 +189,34 @@ export default function HomePage() {
                         className="h-full p-6 border border-cyan-500/30 bg-gray-900/80 backdrop-blur-sm rounded-lg cursor-pointer hover:brightness-110 hover:border-cyan-500/50 transition-all shadow-lg shadow-cyan-500/5"
                       >
                         <div className="space-y-4">
-                          {/* Terminal Header */}
+                          {/* Terminal Header - Keep */}
                           <div className="flex items-center justify-between border-b border-cyan-500/20 pb-2 mb-4">
                             <div className="flex items-center gap-2">
-                              <div className="flex gap-1">
-                                <div className="w-2 h-2 rounded-full bg-red-500"></div>
-                                <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
-                                <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                              <div className="flex gap-1.5 font-mono text-xs">
+                                <span className="text-red-400">[✕]</span>
+                                <span className="text-yellow-400">[−]</span>
+                                <span className="text-green-400">[□]</span>
                               </div>
                               <TerminalText colorScheme="cyan" variant="muted" className="text-xs font-mono">learn-terminal</TerminalText>
                             </div>
                             <TerminalText colorScheme="cyan" variant="accent" className="text-xs">[ACTIVE]</TerminalText>
                           </div>
-                          <div className="flex items-center gap-2 mb-4">
-                            <TerminalText colorScheme="cyan" variant="accent" className="text-xs">drwxr-xr-x</TerminalText>
-                            <TerminalText colorScheme="cyan" variant="primary" className="text-sm font-bold">learn/</TerminalText>
-                            <TerminalText colorScheme="cyan" variant="muted" className="text-xs">5 chapters</TerminalText>
-                            <TerminalText colorScheme="cyan" variant="accent" className="text-xs">[EDUCATIONAL]</TerminalText>
-                          </div>
-                          <div className="space-y-3">
-                            <div className="flex items-center gap-3">
-                              <div className="text-2xl">📚</div>
-                              <div>
-                                <h3 className="text-lg font-bold text-white mb-1">Narrative Lessons</h3>
-                                <TerminalText colorScheme="cyan" variant="muted" className="text-sm">
-                                  Step-by-step chapters explaining zero-knowledge concepts
-                                </TerminalText>
-                              </div>
-                            </div>
-                            <div className="border-t border-gray-700 pt-3">
-                              <TerminalText colorScheme="cyan" variant="muted" className="text-xs">
-                                <span className="text-gray-600">&gt;</span> learn/intro.md
+                          
+                          {/* Content */}
+                          <div className="flex items-start gap-4 mb-6">
+                            <div className="text-4xl">📚</div>
+                            <div className="flex-1">
+                              <h3 className="text-xl font-bold text-white mb-2">Learn Zero-Knowledge</h3>
+                              <TerminalText colorScheme="cyan" variant="muted" className="text-sm">
+                                Step-by-step chapters explaining ZK concepts
                               </TerminalText>
-                              <div className="mt-1">
-                                <TerminalText colorScheme="cyan" variant="accent" className="text-xs">
-                                  Perfect for: Understanding fundamentals
-                                </TerminalText>
-                              </div>
+                            </div>
+                          </div>
+                          
+                          {/* CTA Button */}
+                          <div className="flex justify-end">
+                            <div className="font-mono text-sm px-4 py-2 border-2 border-cyan-500/50 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 transition-all">
+                              [START LEARNING →]
                             </div>
                           </div>
                         </div>
@@ -230,43 +236,34 @@ export default function HomePage() {
                         className="h-full p-6 border border-green-500/30 bg-gray-900/80 backdrop-blur-sm rounded-lg cursor-pointer hover:brightness-110 hover:border-green-500/50 transition-all shadow-lg shadow-green-500/5"
                       >
                         <div className="space-y-4">
-                          {/* Terminal Header */}
+                          {/* Terminal Header - Keep */}
                           <div className="flex items-center justify-between border-b border-green-500/20 pb-2 mb-4">
                             <div className="flex items-center gap-2">
-                              <div className="flex gap-1">
-                                <div className="w-2 h-2 rounded-full bg-red-500"></div>
-                                <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
-                                <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                              <div className="flex gap-1.5 font-mono text-xs">
+                                <span className="text-red-400">[✕]</span>
+                                <span className="text-yellow-400">[−]</span>
+                                <span className="text-green-400">[□]</span>
                               </div>
                               <TerminalText colorScheme="green" variant="muted" className="text-xs font-mono">quest-terminal</TerminalText>
                             </div>
                             <TerminalText colorScheme="green" variant="accent" className="text-xs">[ACTIVE]</TerminalText>
                           </div>
-                          <div className="flex items-center gap-2 mb-4">
-                            <TerminalText colorScheme="green" variant="accent" className="text-xs">drwxr-xr-x</TerminalText>
-                            <TerminalText colorScheme="green" variant="primary" className="text-sm font-bold">quest/</TerminalText>
-                            <TerminalText colorScheme="green" variant="muted" className="text-xs">5 stages</TerminalText>
-                            <TerminalText colorScheme="green" variant="accent" className="text-xs">[GAMIFIED]</TerminalText>
-                          </div>
-                          <div className="space-y-3">
-                            <div className="flex items-center gap-3">
-                              <div className="text-2xl">🎮</div>
-                              <div>
-                                <h3 className="text-lg font-bold text-white mb-1">Interactive Quest</h3>
-                                <TerminalText colorScheme="green" variant="muted" className="text-sm">
-                                  Hands-on challenges guiding you through 5 ZK stages
-                                </TerminalText>
-                              </div>
-                            </div>
-                            <div className="border-t border-gray-700 pt-3">
-                              <TerminalText colorScheme="green" variant="muted" className="text-xs">
-                                <span className="text-gray-600">&gt;</span> quest/start.zk
+                          
+                          {/* Content */}
+                          <div className="flex items-start gap-4 mb-6">
+                            <div className="text-4xl">🎮</div>
+                            <div className="flex-1">
+                              <h3 className="text-xl font-bold text-white mb-2">Interactive Quest</h3>
+                              <TerminalText colorScheme="green" variant="muted" className="text-sm">
+                                Hands-on challenges through 5 ZK stages
                               </TerminalText>
-                              <div className="mt-1">
-                                <TerminalText colorScheme="green" variant="accent" className="text-xs">
-                                  Perfect for: Learning by doing
-                                </TerminalText>
-                              </div>
+                            </div>
+                          </div>
+                          
+                          {/* CTA Button */}
+                          <div className="flex justify-end">
+                            <div className="font-mono text-sm px-4 py-2 border-2 border-green-500/50 bg-green-500/10 text-green-300 hover:bg-green-500/20 transition-all">
+                              [BEGIN QUEST →]
                             </div>
                           </div>
                         </div>

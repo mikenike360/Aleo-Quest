@@ -12,10 +12,10 @@ export function QuestTerminal({ children, className = '' }: QuestTerminalProps) 
     <div className={`w-full max-w-2xl mx-auto bg-black/95 border-2 border-green-600 rounded-lg shadow-2xl ${className}`} style={{ textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}>
       {/* Retro terminal header */}
       <div className="flex items-center justify-between p-2 border-b-2 border-green-600 bg-green-900/20 rounded-t-lg">
-        <div className="flex items-center space-x-1">
-          <div className="w-2 h-2 bg-red-500 rounded-full shadow-lg"></div>
-          <div className="w-2 h-2 bg-yellow-500 rounded-full shadow-lg"></div>
-          <div className="w-2 h-2 bg-green-500 rounded-full shadow-lg"></div>
+        <div className="flex gap-1.5 font-mono text-xs">
+          <span className="text-red-400">[✕]</span>
+          <span className="text-yellow-400">[−]</span>
+          <span className="text-green-400">[□]</span>
         </div>
         <div className="text-xs text-green-400 font-mono tracking-wider">ALEO_QUEST_TERMINAL</div>
         <div className="text-xs text-green-600 font-mono">[ONLINE]</div>

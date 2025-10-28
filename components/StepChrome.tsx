@@ -44,8 +44,8 @@ export function StepChrome({
       {/* Background matrix effect */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden opacity-10">
         <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(0deg, rgba(99, 102, 241, 0.1) 0px, transparent 1px, transparent 2px, rgba(99, 102, 241, 0.1) 3px),
-                           repeating-linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0px, transparent 1px, transparent 2px, rgba(99, 102, 241, 0.1) 3px)`,
+          backgroundImage: `repeating-linear-gradient(0deg, rgba(16, 185, 129, 0.1) 0px, transparent 1px, transparent 2px, rgba(16, 185, 129, 0.1) 3px),
+                           repeating-linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0px, transparent 1px, transparent 2px, rgba(16, 185, 129, 0.1) 3px)`,
           backgroundSize: '50px 50px'
         }} />
       </div>
@@ -59,20 +59,20 @@ export function StepChrome({
       >
         {/* Sticky Progress Bar Only */}
         <div className="sticky top-4 z-10 mb-10">
-          <div className="overflow-hidden rounded-xl border border-cyan-500/30 bg-gray-900/95 backdrop-blur-xl shadow-xl">
+          <div className="overflow-hidden rounded-xl border border-green-500/30 bg-gray-900/95 backdrop-blur-xl shadow-xl">
             <div className="px-5 py-3 bg-gray-800/90">
               <div className="flex items-center justify-between mb-2">
                 <Link 
                   href="/learn" 
-                  className="font-mono text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+                  className="font-mono text-xs text-green-400 hover:text-green-300 transition-colors"
                 >
                   ← all lessons
                 </Link>
-                <div className="font-mono text-xs text-gray-400">
+                <div className="font-mono text-xs text-green-400">
                   {progressPercent}% complete
                 </div>
               </div>
-              <Progress value={progressPercent} className="h-1.5" />
+              <Progress value={progressPercent} className="h-1.5 bg-gray-800 [&>div]:bg-green-500" />
             </div>
           </div>
         </div>
@@ -100,12 +100,12 @@ export function StepChrome({
           transition={{ delay: 0.2 }}
           className="mt-10"
         >
-          <div className="overflow-hidden rounded-xl border border-cyan-500/30 bg-gray-900/95 backdrop-blur-sm shadow-lg">
-            <div className="bg-gray-800/90 px-5 py-3 border-b border-cyan-500/20">
+          <div className="overflow-hidden rounded-xl border border-green-500/30 bg-gray-900/95 backdrop-blur-sm shadow-lg">
+            <div className="bg-gray-800/90 px-5 py-3 border-b border-green-500/20">
               <div className="flex items-center justify-between">
-                <div className="font-mono text-xs text-cyan-400">navigation</div>
+                <div className="font-mono text-xs text-green-400">navigation</div>
                 <div className="font-mono text-xs text-gray-500">
-                  <span className="text-cyan-400">{currentStepNumber}</span>
+                  <span className="text-green-400">{currentStepNumber}</span>
                   <span className="mx-1.5 text-gray-700">/</span>
                   <span className="text-gray-400">{learnSteps.length}</span>
                 </div>
@@ -116,7 +116,7 @@ export function StepChrome({
                 <button
                   onClick={onPrev}
                   disabled={!prevStep}
-                  className="flex flex-col items-start gap-1 rounded-lg border border-gray-700 bg-gray-800/50 px-4 py-3 text-left transition-all hover:border-cyan-500/50 hover:bg-cyan-500/10 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-gray-700 disabled:hover:bg-gray-800/50"
+                  className="flex flex-col items-start gap-1 rounded-lg border border-gray-700 bg-gray-800/50 px-4 py-3 text-left transition-all hover:border-green-500/50 hover:bg-green-500/10 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:border-gray-700 disabled:hover:bg-gray-800/50"
                 >
                   <div className="font-mono text-xs text-gray-500">← Previous</div>
                   <div className="text-sm text-gray-400 truncate w-full">
@@ -129,14 +129,14 @@ export function StepChrome({
                   disabled={!canProceed}
                   className={`flex flex-col items-end gap-1 rounded-lg border px-4 py-3 text-right transition-all ${
                     canProceed
-                      ? 'border-cyan-600/50 bg-cyan-600/10 hover:bg-cyan-600/20 hover:border-cyan-500 cursor-pointer'
+                      ? 'border-green-600/50 bg-green-600/10 hover:bg-green-600/20 hover:border-green-500 cursor-pointer'
                       : 'border-gray-700 bg-gray-800/30 opacity-50 cursor-not-allowed'
                   }`}
                 >
-                  <div className={`font-mono text-xs ${canProceed ? 'text-cyan-400' : 'text-gray-500'}`}>
+                  <div className={`font-mono text-xs ${canProceed ? 'text-green-400' : 'text-gray-500'}`}>
                     {canProceed ? 'Next →' : '🔒 Locked'}
                   </div>
-                  <div className={`text-sm truncate w-full ${canProceed ? 'text-cyan-300' : 'text-gray-500'}`}>
+                  <div className={`text-sm truncate w-full ${canProceed ? 'text-green-300' : 'text-gray-500'}`}>
                     {canProceed
                       ? nextStep ? nextStep.title : 'Complete'
                       : 'Complete quiz to unlock'}

@@ -32,9 +32,7 @@ class SoundManager {
       'click.mp3',
       'hover.mp3',
       'transition.mp3',
-      'typing-slow.mp3',
-      'typing-normal.mp3',
-      'typing-fast.mp3'
+      'typing.mp3'
     ];
 
     soundFiles.forEach(filename => {
@@ -148,8 +146,8 @@ class SoundManager {
   }
 
   // Specific sound methods for different actions
-  playTypingSound(speed: 'slow' | 'normal' | 'fast' = 'normal'): void {
-    this.playSound(`typing-${speed}`, this.volume * 0.2);
+  playTypingSound(): void {
+    this.playSound('typing', this.volume * 0.2);
   }
 
   playCommandSound(): void {

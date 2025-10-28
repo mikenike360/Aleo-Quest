@@ -71,7 +71,8 @@ export function ZKCircuit({
 
   const getNodeColor = (node: CircuitNode) => {
     if (activeNodes.has(node.id)) {
-      return node.color;
+      // Use terminal-style green/cyan colors instead of the node's original color
+      return '#10B981'; // emerald-500 (terminal green)
     }
     return '#374151'; // gray-700
   };
@@ -79,7 +80,7 @@ export function ZKCircuit({
   const getConnectionColor = (connection: CircuitConnection) => {
     const connectionId = `${connection.from}-${connection.to}`;
     if (activeConnections.has(connectionId)) {
-      return '#3B82F6'; // blue-500
+      return '#06B6D4'; // cyan-500 (terminal cyan)
     }
     return '#374151'; // gray-700
   };
@@ -93,8 +94,8 @@ export function ZKCircuit({
   };
 
   return (
-    <div className={`relative w-full ${getSizeClasses()} bg-gray-900 rounded-lg p-4`}>
-      <svg className="w-full h-full" viewBox="0 0 400 200">
+    <div className={`relative w-full ${getSizeClasses()} bg-black border border-green-500/30 rounded-lg p-4`}>
+      <svg className="w-full h-full font-mono" viewBox="0 0 400 200">
         {/* Connections */}
         {connections.map((connection, index) => {
           const fromNode = nodes.find(n => n.id === connection.from);
@@ -127,7 +128,7 @@ export function ZKCircuit({
               cy={node.y}
               r="20"
               fill={getNodeColor(node)}
-              stroke={activeNodes.has(node.id) ? '#FFFFFF' : '#6B7280'}
+              stroke={activeNodes.has(node.id) ? '#22D3EE' : '#6B7280'}
               strokeWidth="2"
               initial={{ scale: 0 }}
               animate={{ 
@@ -145,7 +146,7 @@ export function ZKCircuit({
               x={node.x}
               y={node.y + 4}
               textAnchor="middle"
-              className="font-mono text-xs fill-white"
+              className="font-mono text-xs fill-cyan-300"
               initial={{ opacity: 0 }}
               animate={{ opacity: activeNodes.has(node.id) ? 1 : 0.3 }}
               transition={{ delay: index * 0.2 + 0.3 }}

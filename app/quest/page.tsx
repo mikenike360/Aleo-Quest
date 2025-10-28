@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { trackPageview, trackEvent } from '@/lib/analytics';
 import { AleoLogo } from '@/components/AleoLogo';
 import { TerminalBreadcrumb } from '@/components/TerminalBreadcrumb';
+import { InteractiveTerminal } from '@/components/InteractiveTerminal';
 
 const stageOrder: QuestStage[] = ['locked-vault', 'truth-teller', 'hidden-key', 'private-marketplace', 'final-gate'];
 
@@ -183,42 +184,50 @@ export default function QuestPage() {
               </div>
               {/* Action Buttons - under the title */}
               <div className="px-4 py-2 border-t border-green-500/20">
-                <div className="flex justify-end gap-2">
-                  {/* Mute Button */}
-                  <button 
-                    onClick={() => {
-                      soundManager.toggleMute();
-                      soundManager.playClickSound();
-                    }}
-                    className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-green-400 hover:border-green-500 hover:bg-green-500/10 transition-all"
-                  >
-                    [{isAudioMuted ? 'UNMUTE' : 'MUTE'}]
-                  </button>
+                <div className="flex justify-between items-center gap-4">
+                  {/* Interactive Terminal - Left side */}
+                  <div className="flex-1 min-w-0">
+                    <InteractiveTerminal />
+                  </div>
+                  
+                  {/* Buttons - Right side */}
+                  <div className="flex gap-2 shrink-0">
+                    {/* Mute Button */}
+                    <button 
+                      onClick={() => {
+                        soundManager.toggleMute();
+                        soundManager.playClickSound();
+                      }}
+                      className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-green-400 hover:border-green-500 hover:bg-green-500/10 transition-all"
+                    >
+                      [{isAudioMuted ? 'UNMUTE' : 'MUTE'}]
+                    </button>
 
-                  {/* Reset Button */}
-                  <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
-                    <DialogTrigger asChild>
-                      <button className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-red-400 hover:border-red-500 hover:bg-red-500/10 transition-all">
-                        [RESET]
-                      </button>
-                    </DialogTrigger>
-                    <DialogContent className="bg-black border-2 border-green-500 text-green-400 font-mono">
-                      <DialogHeader>
-                        <DialogTitle className="text-lg font-bold text-green-400">[RESET QUEST]</DialogTitle>
-                        <DialogDescription className="text-gray-300">
-                          Are you sure you want to reset your quest progress? This will clear all your badges and start over.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <DialogFooter>
-                        <Button variant="outline" onClick={() => setShowResetDialog(false)} className="border-green-500 text-green-400 hover:bg-green-500/10 font-mono">
-                          [CANCEL]
-                        </Button>
-                        <Button onClick={handleReset} className="bg-red-600 hover:bg-red-700 text-white font-mono">
-                          [RESET QUEST]
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
+                    {/* Reset Button */}
+                    <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
+                      <DialogTrigger asChild>
+                        <button className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-red-400 hover:border-red-500 hover:bg-red-500/10 transition-all">
+                          [RESET]
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent className="bg-black border-2 border-green-500 text-green-400 font-mono">
+                        <DialogHeader>
+                          <DialogTitle className="text-lg font-bold text-green-400">[RESET QUEST]</DialogTitle>
+                          <DialogDescription className="text-gray-300">
+                            Are you sure you want to reset your quest progress? This will clear all your badges and start over.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <DialogFooter>
+                          <Button variant="outline" onClick={() => setShowResetDialog(false)} className="border-green-500 text-green-400 hover:bg-green-500/10 font-mono">
+                            [CANCEL]
+                          </Button>
+                          <Button onClick={handleReset} className="bg-red-600 hover:bg-red-700 text-white font-mono">
+                            [RESET QUEST]
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
                 </div>
               </div>
             </div>
@@ -262,13 +271,14 @@ export default function QuestPage() {
             {/* Content */}
             {!initialized ? (
               <div className="space-y-4">
-                <TerminalPanel title="INITIALIZATION REQUIRED">
-                  <TerminalText className="text-center">
+                <TerminalPanel title="INITIALIZATION_REQUIRED" colorScheme="green">
+                  <TerminalText colorScheme="green" className="text-center">
 
                     <div className="flex justify-center">
                       <TerminalButton 
                         onClick={handleInitializeClick}
                         className="px-8 py-4 text-lg"
+                        colorScheme="green"
                       >
                         START ALEO QUEST
                       </TerminalButton>
@@ -278,40 +288,94 @@ export default function QuestPage() {
               </div>
             ) : isProcessing ? (
               <div className="space-y-4">
-                <TerminalPanel title="PROCESSING...">
-                  <TerminalProgress value={50} max={100} />
-                  <TerminalText>
-                    <p className="text-gray-300">
-                      Processing your proof... This may take a moment.
-                    </p>
-                  </TerminalText>
+                <TerminalPanel title="PROCESSING..." colorScheme="green">
+                  <div className="space-y-4">
+                    <TerminalProgress value={50} max={100} colorScheme="green" />
+                    <TerminalText colorScheme="green">
+                      <div className="flex items-start gap-2">
+                        <span className="text-green-400">&gt;</span>
+                        <p className="text-gray-300">
+                          Processing your proof... This may take a moment.
+                        </p>
+                      </div>
+                    </TerminalText>
+                  </div>
                 </TerminalPanel>
               </div>
             ) : showStageTransition ? (
               <div className="space-y-4">
-                <TerminalPanel title="STAGE TRANSITION">
-                  <TerminalText>
-                    <div className="text-center space-y-4">
-                      <p className="text-green-400 text-lg font-bold">
-                        {getStageCompletionMessage(questStage)}
-                      </p>
-                      <p className="text-gray-300">
-                        Quest Progress: {Math.round((badges.length / 5) * 100)}% ({badges.length}/5 stages)
-                      </p>
-                      <p className="text-sm text-gray-400 mb-4">
-                        Press ENTER or click to continue...
-                      </p>
-                      <TerminalButton onClick={handleAdvanceToNextStage}>
-                        ADVANCE TO {getStageTitle(nextStage!).toUpperCase()}
-                      </TerminalButton>
+                <TerminalPanel title="STAGE_COMPLETE" colorScheme="green">
+                  <TerminalText colorScheme="green">
+                    <div className="space-y-6">
+                      {/* ASCII Success Banner */}
+                      <div className="text-center font-mono text-green-400">
+                        <pre className="text-xs leading-tight">
+{`╔════════════════════════════════╗
+║    STAGE COMPLETED ✓           ║
+╚════════════════════════════════╝`}
+                        </pre>
+                      </div>
+                      
+                      {/* Status Message */}
+                      <div className="space-y-2">
+                        <div className="flex items-start gap-2">
+                          <span className="text-green-400">&gt;</span>
+                          <p className="text-green-400 text-lg font-bold">
+                            {getStageCompletionMessage(questStage)}
+                          </p>
+                        </div>
+                        
+                        <div className="flex items-start gap-2">
+                          <span className="text-green-400">&gt;</span>
+                          <p className="text-gray-300">
+                            Progress: {Math.round((badges.length / 5) * 100)}% | Stages: {badges.length}/5
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {/* Progress Bar */}
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 text-xs text-gray-400 font-mono">
+                          <span>[</span>
+                          <div className="flex-1 h-2 bg-gray-800 rounded-sm overflow-hidden">
+                            <div 
+                              className="h-full bg-green-500 transition-all duration-500"
+                              style={{ width: `${Math.round((badges.length / 5) * 100)}%` }}
+                            />
+                          </div>
+                          <span>]</span>
+                        </div>
+                      </div>
+                      
+                      {/* Action Prompt */}
+                      <div className="text-center">
+                        <p className="text-sm text-gray-500 mb-4 font-mono">
+                          Press ENTER or click to continue...
+                        </p>
+                        <TerminalButton 
+                          onClick={handleAdvanceToNextStage}
+                          colorScheme="green"
+                        >
+                          ADVANCE TO {getStageTitle(nextStage!).toUpperCase()} →
+                        </TerminalButton>
+                      </div>
                     </div>
                   </TerminalText>
                 </TerminalPanel>
               </div>
             ) : questStage === 'completed' ? (
               <div className="space-y-4">
-                <TerminalPanel >
+                <TerminalPanel colorScheme="green">
                   <div className="text-center space-y-6">
+                    {/* ASCII Banner */}
+                    <div className="font-mono text-green-400">
+                      <pre className="text-sm leading-tight">
+{`╔═══════════════════════════════════╗
+║   QUEST COMPLETE - ALL STAGES ✓   ║
+╚═══════════════════════════════════╝`}
+                      </pre>
+                    </div>
+                    
                     <motion.img
                       src="/aleo-quest-images/quest_complete.png"
                       alt="Quest Complete"
@@ -321,10 +385,16 @@ export default function QuestPage() {
                       transition={{ duration: 0.5 }}
                     />
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                      <TerminalButton onClick={() => setQuestStage('locked-vault')}>
+                      <TerminalButton 
+                        onClick={() => setQuestStage('locked-vault')}
+                        colorScheme="green"
+                      >
                         RESTART QUEST
                       </TerminalButton>
-                      <TerminalButton onClick={() => setShowResetDialog(true)}>
+                      <TerminalButton 
+                        onClick={() => setShowResetDialog(true)}
+                        colorScheme="green"
+                      >
                         RESET PROGRESS
                       </TerminalButton>
                     </div>

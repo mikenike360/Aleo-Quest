@@ -17,6 +17,7 @@ import { learnSteps, getProgressPercent } from '@/lib/steps';
 import { CheckCircle, Lock, Circle, RotateCcw } from 'lucide-react';
 import { trackPageview, trackEvent } from '@/lib/analytics';
 import { useSoundManager } from '@/lib/audio';
+import { InteractiveTerminal } from '@/components/InteractiveTerminal';
 
 export default function LearnPage() {
   const [showResetDialog, setShowResetDialog] = useState(false);
@@ -88,52 +89,60 @@ export default function LearnPage() {
               </div>
               {/* Action Buttons - under the title */}
               <div className="px-4 py-2 border-t border-green-500/20">
-                <div className="flex justify-end gap-2">
-                  {/* Mute Button */}
-                  <button 
-                    onClick={() => {
-                      soundManager.toggleMute();
-                      soundManager.playClickSound();
-                    }}
-                    className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-green-400 hover:border-green-500 hover:bg-green-500/10 transition-all"
-                  >
-                    [{isAudioMuted ? 'UNMUTE' : 'MUTE'}]
-                  </button>
+                <div className="flex justify-between items-center gap-4">
+                  {/* Interactive Terminal - Left side */}
+                  <div className="flex-1 min-w-0">
+                    <InteractiveTerminal />
+                  </div>
+                  
+                  {/* Buttons - Right side */}
+                  <div className="flex gap-2 shrink-0">
+                    {/* Mute Button */}
+                    <button 
+                      onClick={() => {
+                        soundManager.toggleMute();
+                        soundManager.playClickSound();
+                      }}
+                      className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-green-400 hover:border-green-500 hover:bg-green-500/10 transition-all"
+                    >
+                      [{isAudioMuted ? 'UNMUTE' : 'MUTE'}]
+                    </button>
 
-                  {/* Reset Button */}
-                  {completedSteps.length > 0 && (
-                    <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
-                      <DialogTrigger asChild>
-                        <button className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-red-400 hover:border-red-500 hover:bg-red-500/10 transition-all">
-                          [RESET]
-                        </button>
-                      </DialogTrigger>
-                      <DialogContent className="bg-black border-2 border-green-500 text-green-400 font-mono">
-                        <DialogHeader>
-                          <DialogTitle className="text-lg font-bold text-green-400">[RESET LEARNING]</DialogTitle>
-                          <DialogDescription className="text-gray-300">
-                            Are you sure you want to reset your learning progress? This will clear all your completed lessons and start over.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <DialogFooter>
-                          <Button
-                            variant="outline"
-                            onClick={() => setShowResetDialog(false)}
-                            className="border-green-500 text-green-400 hover:bg-green-500/10 font-mono"
-                          >
-                            [CANCEL]
-                          </Button>
-                          <Button
-                            variant="default"
-                            onClick={handleReset}
-                            className="bg-red-600 hover:bg-red-700 text-white font-mono"
-                          >
-                            [RESET LEARNING]
-                          </Button>
-                        </DialogFooter>
-                      </DialogContent>
-                    </Dialog>
-                  )}
+                    {/* Reset Button */}
+                    {completedSteps.length > 0 && (
+                      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
+                        <DialogTrigger asChild>
+                          <button className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-red-400 hover:border-red-500 hover:bg-red-500/10 transition-all">
+                            [RESET]
+                          </button>
+                        </DialogTrigger>
+                        <DialogContent className="bg-black border-2 border-green-500 text-green-400 font-mono">
+                          <DialogHeader>
+                            <DialogTitle className="text-lg font-bold text-green-400">[RESET LEARNING]</DialogTitle>
+                            <DialogDescription className="text-gray-300">
+                              Are you sure you want to reset your learning progress? This will clear all your completed lessons and start over.
+                            </DialogDescription>
+                          </DialogHeader>
+                          <DialogFooter>
+                            <Button
+                              variant="outline"
+                              onClick={() => setShowResetDialog(false)}
+                              className="border-green-500 text-green-400 hover:bg-green-500/10 font-mono"
+                            >
+                              [CANCEL]
+                            </Button>
+                            <Button
+                              variant="default"
+                              onClick={handleReset}
+                              className="bg-red-600 hover:bg-red-700 text-white font-mono"
+                            >
+                              [RESET LEARNING]
+                            </Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -154,11 +163,11 @@ export default function LearnPage() {
             <TerminalWidget title="learn $ status" colorScheme="green">
               <div className="space-y-4">
                 <div className="flex items-center justify-between font-mono text-xs mb-2">
-                  <span className="text-gray-400">Progress</span>
-                  <span className="text-cyan-400 font-bold">{progressPercent}%</span>
+                  <span className="text-green-400">Progress</span>
+                  <span className="text-green-300 font-bold">{progressPercent}%</span>
                 </div>
-                <Progress value={progressPercent} className="h-2.5" />
-                <div className="flex items-center justify-between font-mono text-xs text-gray-500">
+                <Progress value={progressPercent} className="h-2.5 bg-gray-800 [&>div]:bg-green-500" />
+                <div className="flex items-center justify-between font-mono text-xs text-green-400/70">
                   <span>{completedSteps.length} of {learnSteps.length} complete</span>
                   {progressPercent === 100 && (
                     <span className="text-green-400">✓ All done!</span>
@@ -166,7 +175,6 @@ export default function LearnPage() {
                 </div>
               </div>
             </TerminalWidget>
-
             {/* Steps Grid */}
             <div className="grid gap-4">
               {learnSteps.map((step, index) => {
@@ -195,23 +203,6 @@ export default function LearnPage() {
                       <CardHeader className="pb-3">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            <div className={`flex h-8 w-8 items-center justify-center rounded-full font-mono text-sm font-bold border ${
-                              isCompleted 
-                                ? 'bg-green-500/20 text-green-400 border-green-500/30' 
-                                : isCurrent 
-                                ? 'bg-green-500/30 text-green-300 border-green-500/50' 
-                                : isAvailable
-                                ? 'bg-gray-600/20 text-gray-400 border-gray-500/30'
-                                : 'bg-gray-700/20 text-gray-500 border-gray-600/30'
-                            }`}>
-                              {isCompleted ? (
-                                '✓'
-                              ) : isLocked ? (
-                                '🔒'
-                              ) : (
-                                '○'
-                              )}
-                            </div>
                             <div>
                               <CardTitle className="text-lg">{step.title}</CardTitle>
                               <CardDescription className="text-sm">
@@ -293,7 +284,7 @@ export default function LearnPage() {
                     <Link href="/quest">
                       <button 
                         onClick={() => soundManager.playClickSound()}
-                        className="rounded-lg border border-purple-600/50 bg-purple-600/10 px-6 py-3 font-mono text-sm text-purple-300 transition hover:bg-purple-600/20"
+                        className="rounded-lg border border-green-600/50 bg-green-600/10 px-6 py-3 font-mono text-sm text-green-300 transition hover:bg-green-600/20"
                       >
                         🎮 Start Quest
                       </button>

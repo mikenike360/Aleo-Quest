@@ -11,6 +11,14 @@ export function CRTEffect() {
         }}
       />
       
+      {/* Flicker overlay */}
+      <div 
+        className="pointer-events-none absolute inset-0 z-10"
+        style={{
+          animation: 'crt-flicker 5s infinite, crt-brightness 3s ease-in-out infinite',
+        }}
+      />
+      
       {/* Subtle vignette */}
       <div 
         className="pointer-events-none absolute inset-0 z-10"

@@ -73,7 +73,15 @@ export default function RootLayout({
               <p className="font-mono text-xs text-gray-400">
                 <span className="text-gray-600">&gt;</span> © 2025 Aleo Quest
                 <span className="mx-2 text-gray-700">|</span>
-                <span className="text-gray-500">Built with privacy in mind</span>
+                Made with <span className="text-red-400">♥</span> by{' '}
+                <a
+                  href="https://venomlabs.xyz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cyan-400 transition-colors hover:text-cyan-300 hover:underline"
+                >
+                  VenomLabs
+                </a>
               </p>
               <div className="flex gap-4 font-mono text-xs">
                 <a

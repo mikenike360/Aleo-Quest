@@ -59,84 +59,91 @@ export default function HomePage() {
         <Terminal title="aleo-quest-main" glow="green" showCRT={true}>
           <div className="space-y-8">
             {/* Header - Terminal Title Bar Style */}
-            <div className="border-2 border-green-500/50 bg-black/90 rounded-t-lg">
-              <div className="flex items-center gap-2 px-0 sm:px-3 py-2 border-b-2 border-green-500/30">
-                <div className="flex gap-1">
+            {bootComplete && (
+              <motion.div 
+                className="border-2 border-green-500/50 bg-black/90 rounded-t-lg"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                <div className="flex items-center gap-2 px-0 sm:px-3 py-2 border-b-2 border-green-500/30">
+                  <div className="flex gap-1">
 
-                </div>
-                <div className="flex-1 text-center">
-                  <AleoLogo colorScheme="green" size="small" />
-                  <TerminalBreadcrumb currentPage="" colorScheme="green" />
-                </div>
-              </div>
-              <div className="px-2 sm:px-4 py-2 font-mono text-xs text-gray-400 text-center">
-                &gt; An educational journey through zero-knowledge_
-              </div>
-              {/* Action Buttons - under the title */}
-              <div className="px-4 py-2 border-t border-green-500/20">
-                <div className="flex justify-between items-center gap-4">
-                  {/* Interactive Terminal - Left side */}
-                  <div className="flex-1 min-w-0">
-                    {bootComplete && <InteractiveTerminal />}
                   </div>
-                  
-                  {/* Buttons - Right side */}
-                  <div className="flex gap-2 shrink-0">
-                    {/* Mute Button */}
-                    <button 
-                      onClick={() => {
-                        soundManager.toggleMute();
-                        soundManager.playClickSound();
-                      }}
-                      className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-green-400 hover:border-green-500 hover:bg-green-500/10 transition-all"
-                    >
-                      [{isAudioMuted ? 'UNMUTE' : 'MUTE'}]
-                    </button>
-
-                    {/* Reset Button */}
-                    {hasProgress && (
-                      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
-                        <DialogTrigger asChild>
-                          <button className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-red-400 hover:border-red-500 hover:bg-red-500/10 transition-all">
-                            [RESET]
-                          </button>
-                        </DialogTrigger>
-                        <DialogContent className="bg-black border-2 border-green-500 text-green-400 font-mono">
-                          <DialogHeader>
-                            <DialogTitle className="text-lg font-bold text-green-400">[RESET ALL PROGRESS]</DialogTitle>
-                            <DialogDescription className="text-gray-300">
-                              Are you sure you want to reset all your progress? This will clear all your badges and learning progress.
-                            </DialogDescription>
-                          </DialogHeader>
-                          <div className="my-4 rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-4">
-                            <p className="text-sm text-yellow-300">
-                              Current progress: <strong>{badges.length} badges earned, {completedSteps.length}/{learnSteps.length} lessons complete</strong>
-                            </p>
-                          </div>
-                          <DialogFooter>
-                            <Button
-                              variant="outline"
-                              onClick={() => setShowResetDialog(false)}
-                              className="border-gray-600 text-gray-300 hover:bg-gray-800"
-                            >
-                              [CANCEL]
-                            </Button>
-                            <Button
-                              variant="default"
-                              onClick={handleResetAll}
-                              className="bg-red-600 hover:bg-red-700"
-                            >
-                              <RotateCcw className="mr-2 h-4 w-4" />
-                              [RESET ALL]
-                            </Button>
-                          </DialogFooter>
-                        </DialogContent>
-                      </Dialog>
-                    )}
+                  <div className="flex-1 text-center">
+                    <AleoLogo colorScheme="green" size="small" />
+                    <TerminalBreadcrumb currentPage="" colorScheme="green" />
                   </div>
                 </div>
-              </div>
-            </div>
+                <div className="px-2 sm:px-4 py-2 font-mono text-xs text-gray-400 text-center">
+                  &gt; An educational journey through zero-knowledge_
+                </div>
+                {/* Action Buttons - under the title */}
+                <div className="px-4 py-2 border-t border-green-500/20">
+                  <div className="flex justify-between items-center gap-4">
+                    {/* Interactive Terminal - Left side */}
+                    <div className="flex-1 min-w-0">
+                      <InteractiveTerminal />
+                    </div>
+                    
+                    {/* Buttons - Right side */}
+                    <div className="flex gap-2 shrink-0">
+                      {/* Mute Button */}
+                      <button 
+                        onClick={() => {
+                          soundManager.toggleMute();
+                          soundManager.playClickSound();
+                        }}
+                        className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-green-400 hover:border-green-500 hover:bg-green-500/10 transition-all"
+                      >
+                        [{isAudioMuted ? 'UNMUTE' : 'MUTE'}]
+                      </button>
+
+                      {/* Reset Button */}
+                      {hasProgress && (
+                        <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
+                          <DialogTrigger asChild>
+                            <button className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-red-400 hover:border-red-500 hover:bg-red-500/10 transition-all">
+                              [RESET]
+                            </button>
+                          </DialogTrigger>
+                          <DialogContent className="bg-black border-2 border-green-500 text-green-400 font-mono">
+                            <DialogHeader>
+                              <DialogTitle className="text-lg font-bold text-green-400">[RESET ALL PROGRESS]</DialogTitle>
+                              <DialogDescription className="text-gray-300">
+                                Are you sure you want to reset all your progress? This will clear all your badges and learning progress.
+                              </DialogDescription>
+                            </DialogHeader>
+                            <div className="my-4 rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-4">
+                              <p className="text-sm text-yellow-300">
+                                Current progress: <strong>{badges.length} badges earned, {completedSteps.length}/{learnSteps.length} lessons complete</strong>
+                              </p>
+                            </div>
+                            <DialogFooter>
+                              <Button
+                                variant="outline"
+                                onClick={() => setShowResetDialog(false)}
+                                className="border-gray-600 text-gray-300 hover:bg-gray-800"
+                              >
+                                [CANCEL]
+                              </Button>
+                              <Button
+                                variant="default"
+                                onClick={handleResetAll}
+                                className="bg-red-600 hover:bg-red-700"
+                              >
+                                <RotateCcw className="mr-2 h-4 w-4" />
+                                [RESET ALL]
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
             {/* Boot Sequence */}
             {!bootComplete && (
               <motion.div
@@ -154,7 +161,12 @@ export default function HomePage() {
 
             {/* Features Section */}
             {bootComplete && (
-              <div className="space-y-8">
+              <motion.div 
+                className="space-y-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+              >
                 {/* Section divider */}
                 <div className="flex items-center gap-4">
                   <div className="flex-1 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
@@ -272,7 +284,7 @@ export default function HomePage() {
                   </motion.div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )}
           </div>
         </Terminal>

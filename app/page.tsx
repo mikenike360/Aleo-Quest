@@ -60,13 +60,13 @@ export default function HomePage() {
           <div className="space-y-8">
             {/* Header - Terminal Title Bar Style */}
             <div className="border-2 border-green-500/50 bg-black/90 rounded-t-lg">
-              <div className="flex items-center gap-2 px-2 sm:px-3 py-2 border-b-2 border-green-500/30">
+              <div className="flex items-center gap-2 px-0 sm:px-3 py-2 border-b-2 border-green-500/30">
                 <div className="flex gap-1">
 
                 </div>
                 <div className="flex-1 text-center">
                   <AleoLogo colorScheme="green" size="small" />
-                  <TerminalBreadcrumb currentPage="home" colorScheme="green" />
+                  <TerminalBreadcrumb currentPage="" colorScheme="green" />
                 </div>
               </div>
               <div className="px-2 sm:px-4 py-2 font-mono text-xs text-gray-400 text-center">

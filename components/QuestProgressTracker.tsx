@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { TerminalText, TerminalProgress } from '@/components/zkVisuals/TerminalTheme';
+import { motion } from 'framer-motion';
+import { TerminalProgress } from '@/components/zkVisuals/TerminalTheme';
 import { type QuestStage } from '@/lib/store';
 
 const stageOrder: QuestStage[] = ['locked-vault', 'truth-teller', 'hidden-key', 'private-marketplace', 'final-gate'];
@@ -37,20 +37,16 @@ export function QuestProgressTracker({
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
-    <div className={`border-2 border-cyan-500 bg-black/90 p-4 font-mono ${className}`}>
+    <div className={`border-2 border-cyan-500 bg-black/90 p-2 sm:p-4 font-mono w-full max-w-full ${className}`}>
       {/* Terminal Header */}
       <div className="border-b border-cyan-500/30 pb-2 mb-4">
-        <div className="flex items-center justify-between">
-          <div className="text-sm text-cyan-400">
-            ┌────────────────────────────────────┐
-            <br />
-            │ QUEST_PROGRESS [{badges.length}/5] │
-            <br />
-            └────────────────────────────────────┘
+        <div className="flex items-center justify-between gap-2">
+          <div className="text-xs sm:text-sm text-cyan-400 flex-1 min-w-0">
+            QUEST_PROGRESS [{badges.length}/5]
           </div>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="text-cyan-400 hover:text-cyan-300 transition-colors font-mono text-xs"
+            className="text-cyan-400 hover:text-cyan-300 transition-colors font-mono text-xs flex-shrink-0 px-1"
             title={isExpanded ? 'Collapse' : 'Expand'}
           >
             {isExpanded ? '▼' : '▶'}
@@ -59,29 +55,15 @@ export function QuestProgressTracker({
       </div>
 
       {/* Progress Bar */}
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <TerminalProgress value={badges.length} max={5} colorScheme="cyan" />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {isExpanded && (
+        <div>
+          <TerminalProgress value={badges.length} max={5} colorScheme="cyan" />
+        </div>
+      )}
 
       {/* Stage Navigation */}
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="space-y-2"
-          >
+      {isExpanded && (
+        <div className="space-y-2">
         {/* Desktop Layout */}
         <div className="hidden sm:flex items-center justify-between gap-2">
           {stageOrder.map((stage, index) => {
@@ -162,9 +144,8 @@ export function QuestProgressTracker({
             );
           })}
         </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
     </div>
   );
 }

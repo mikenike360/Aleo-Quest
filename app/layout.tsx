@@ -34,6 +34,15 @@ export default function RootLayout({
               {/* Navigation Links */}
               <div className="flex items-center gap-1">
                 <Link
+                  href="/"
+                  className="group relative px-3 py-1.5 font-mono text-sm transition-colors hover:text-green-400"
+                >
+                  <span className="text-gray-600">./</span>
+                  <span>home</span>
+                  <span className="absolute inset-x-0 -bottom-1 h-px scale-x-0 bg-green-400 transition-transform group-hover:scale-x-100" />
+                </Link>
+                <span className="text-gray-700">|</span>
+                <Link
                   href="/learn"
                   className="group relative px-3 py-1.5 font-mono text-sm transition-colors hover:text-cyan-400"
                 >

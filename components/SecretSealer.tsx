@@ -32,6 +32,7 @@ export function SecretSealer({ prompt, minLength, onSecretSealed }: SecretSealer
   const [magicalAura, setMagicalAura] = useState(false);
   const [selectedRunes, setSelectedRunes] = useState<string[]>([]);
   const vaultRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const isValid = secret.length >= minLength;
   const canSeal = isValid && !isSealing && !isSealed;
@@ -39,6 +40,17 @@ export function SecretSealer({ prompt, minLength, onSecretSealed }: SecretSealer
 
   // Terminal symbols that appear as you type
   const terminalSymbols = ['#', '*', '+', '>', '<', '|', '-', '=', '@', '%'];
+
+  // Detect screen size for responsive symbol radius
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleContinue = () => {
     if (!canContinue) return;
@@ -94,7 +106,7 @@ export function SecretSealer({ prompt, minLength, onSecretSealed }: SecretSealer
       <TerminalPanel colorScheme="cyan" title="VAULT_COMMIT">
         <div className="space-y-3">
           {/* Inline Vault and Input */}
-          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
+          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 w-full max-w-full overflow-hidden">
             {/* Smaller vault icon */}
             <motion.div
               ref={vaultRef}
@@ -119,21 +131,22 @@ export function SecretSealer({ prompt, minLength, onSecretSealed }: SecretSealer
               whileTap={{ scale: 0.95 }}
             >
               {/* Terminal symbols around the vault */}
-              <div className="absolute inset-0 flex items-center justify-center scale-90 sm:scale-100">
+              <div className="absolute inset-0 flex items-center justify-center">
                 {selectedRunes.map((symbol, index) => {
-                  const angle = (index * 360) / selectedRunes.length;
-                  // Responsive radius: Mobile: 48px box uses ~15px radius, Desktop: 64px box uses ~20px radius
-                  const radius = 20;
+                  // Start at top of circle (12 o'clock) by adding -90 degrees
+                  const angle = (index * 360) / selectedRunes.length - 90;
+                  // Dynamic radius based on screen size: 14px for mobile (48px vault), 20px for desktop (64px vault)
+                  const radius = isMobile ? 14 : 20;
                   const x = Math.cos((angle * Math.PI) / 180) * radius;
                   const y = Math.sin((angle * Math.PI) / 180) * radius;
                   
                   return (
                     <motion.div
                       key={index}
-                      className="absolute font-mono text-xs"
+                      className="absolute font-mono text-[0.5rem] sm:text-xs pointer-events-none"
                       style={{
                         left: `calc(50% + ${x}px)`,
-                        top: `calc(50% + ${y}px)`,
+                        top: `calc(50% + ${y}px - 2px)`,
                         transform: 'translate(-50%, -50%)',
                         color: '#22D3EE'
                       }}
@@ -180,7 +193,7 @@ export function SecretSealer({ prompt, minLength, onSecretSealed }: SecretSealer
             </motion.div>
 
             {/* Input field */}
-            <div className="flex-1 w-full min-w-0">
+            <div className="flex-1 w-full min-w-0 max-w-full">
               <TerminalInput
                 value={secret}
                 onChange={handleSecretChange}

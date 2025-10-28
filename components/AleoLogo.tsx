@@ -13,8 +13,9 @@ export function AleoLogo({ colorScheme = 'green', size = 'small', className = ''
     : 'text-[0.45rem] leading-[0.5rem] sm:text-[0.55rem] sm:leading-[0.6rem] md:text-xs md:leading-tight';
   
   return (
-    <div className={`font-mono ${colorClass} ${className}`}>
-      <pre className={`${sizeClass} font-bold whitespace-pre`}>
+    <div className={`font-mono ${colorClass} ${className} w-full overflow-hidden`}>
+      <div className="overflow-x-auto">
+        <pre className={`${sizeClass} font-bold whitespace-pre inline-block min-w-full`}>
 {`                                                                                             
  @@@@@@   @@@       @@@@@@@@   @@@@@@       @@@@@@    @@@  @@@  @@@@@@@@   @@@@@@   @@@@@@@  
 @@@@@@@@  @@@       @@@@@@@@  @@@@@@@@     @@@@@@@@   @@@  @@@  @@@@@@@@  @@@@@@@   @@@@@@@  
@@ -26,7 +27,8 @@ export function AleoLogo({ colorScheme = 'green', size = 'small', className = ''
 :!:  !:!   :!:      :!:       :!:  !:!     :!: :!:    :!:  !:!  :!:           !:!     :!:    
 ::   :::   :: ::::   :: ::::  ::::: ::     ::::: :!   ::::: ::   :: ::::  :::: ::      ::    
  :   : :  : :: : :  : :: ::    : :  :       : :  :::   : :  :   : :: ::   :: : :       :     `}
-      </pre>
+        </pre>
+      </div>
     </div>
   );
 }

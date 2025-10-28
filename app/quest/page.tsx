@@ -169,7 +169,7 @@ export default function QuestPage() {
 
             {/* Header - Terminal Title Bar Style */}
             <div className="border-2 border-green-500/50 bg-black/90 rounded-t-lg">
-              <div className="flex items-center gap-2 px-2 sm:px-3 py-2 border-b-2 border-green-500/30">
+              <div className="flex items-center gap-2 px-0 sm:px-3 py-2 border-b-2 border-green-500/30">
                 <div className="flex gap-1">
 
                 </div>

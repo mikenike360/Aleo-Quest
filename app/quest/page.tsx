@@ -79,6 +79,11 @@ export default function QuestPage() {
     if (questStage && questStage !== 'completed') {
       soundManager.playQuestAmbient(questStage);
     }
+    
+    // Cleanup: Stop ambient music when component unmounts or questStage changes
+    return () => {
+      soundManager.stopAmbient();
+    };
   }, [questStage, soundManager]);
 
 

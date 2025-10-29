@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Aleo Quest',
-  description: 'Learn, See, and Do Zero-Knowledge with Aleo',
+  description: 'An educational journey through zero-knowledge_',
 };
 
 export default function RootLayout({

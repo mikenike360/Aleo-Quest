@@ -249,12 +249,6 @@ export const questStories = {
         content: ['Proving minimal information...', 'Door A responds...']
       } as StoryBeat,
       {
-        type: 'success',
-        content: [
-          'Door A swings open smoothly and then all the doors collapse!'
-        ]
-      } as StoryBeat,
-      {
         type: 'npc',
         npcName: 'KEY MASTER',
         content: [

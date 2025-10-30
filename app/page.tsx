@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Progress } from '@/components/ui/progress';
 import { TerminalWidget } from '@/components/TerminalWidget';
 import { Terminal } from '@/components/Terminal';
@@ -13,14 +12,13 @@ import { InteractiveTerminal } from '@/components/InteractiveTerminal';
 import { TerminalPanel, TerminalText } from '@/components/zkVisuals/TerminalTheme';
 import { useAppStore } from '@/lib/store';
 import { learnSteps, getProgressPercent } from '@/lib/steps';
-import { BookOpen, Eye, Gamepad2, ArrowRight, RotateCcw } from 'lucide-react';
+import { BookOpen, Eye, Gamepad2, ArrowRight } from 'lucide-react';
 import { trackPageview, trackEvent } from '@/lib/analytics';
 import { useSoundManager } from '@/lib/audio';
 import { AleoLogo } from '@/components/AleoLogo';
 import { TerminalBreadcrumb } from '@/components/TerminalBreadcrumb';
 
 export default function HomePage() {
-  const [showResetDialog, setShowResetDialog] = useState(false);
   const [bootComplete, setBootComplete] = useState(false);
   const soundManager = useSoundManager();
   const isAudioMuted = useAppStore((state) => state.isAudioMuted);
@@ -74,6 +72,17 @@ export default function HomePage() {
                     <AleoLogo colorScheme="green" size="small" />
                     <TerminalBreadcrumb currentPage="" colorScheme="green" />
                   </div>
+                  <div className="ml-auto pr-2">
+                    <button 
+                      onClick={() => {
+                        soundManager.toggleMute();
+                        soundManager.playClickSound();
+                      }}
+                      className="font-mono text-[10px] sm:text-xs px-2 sm:px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-green-400 hover:border-green-500 hover:bg-green-500/10 transition-all"
+                    >
+                      [{isAudioMuted ? 'UNMUTE' : 'MUTE'}]
+                    </button>
+                  </div>
                 </div>
                 <div className="px-2 sm:px-4 py-2 font-mono text-xs text-gray-400 text-center">
                   &gt; An educational journey through zero-knowledge_
@@ -86,60 +95,8 @@ export default function HomePage() {
                       <InteractiveTerminal />
                     </div>
                     
-                    {/* Buttons - Right side */}
-                    <div className="flex gap-2 shrink-0">
-                      {/* Mute Button */}
-                      <button 
-                        onClick={() => {
-                          soundManager.toggleMute();
-                          soundManager.playClickSound();
-                        }}
-                        className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-green-400 hover:border-green-500 hover:bg-green-500/10 transition-all"
-                      >
-                        [{isAudioMuted ? 'UNMUTE' : 'MUTE'}]
-                      </button>
-
-                      {/* Reset Button */}
-                      {hasProgress && (
-                        <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
-                          <DialogTrigger asChild>
-                            <button className="font-mono text-xs px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-red-400 hover:border-red-500 hover:bg-red-500/10 transition-all">
-                              [RESET]
-                            </button>
-                          </DialogTrigger>
-                          <DialogContent className="bg-black border-2 border-green-500 text-green-400 font-mono">
-                            <DialogHeader>
-                              <DialogTitle className="text-lg font-bold text-green-400">[RESET ALL PROGRESS]</DialogTitle>
-                              <DialogDescription className="text-gray-300">
-                                Are you sure you want to reset all your progress? This will clear all your badges and learning progress.
-                              </DialogDescription>
-                            </DialogHeader>
-                            <div className="my-4 rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-4">
-                              <p className="text-sm text-yellow-300">
-                                Current progress: <strong>{badges.length} badges earned, {completedSteps.length}/{learnSteps.length} lessons complete</strong>
-                              </p>
-                            </div>
-                            <DialogFooter>
-                              <Button
-                                variant="outline"
-                                onClick={() => setShowResetDialog(false)}
-                                className="border-gray-600 text-gray-300 hover:bg-gray-800"
-                              >
-                                [CANCEL]
-                              </Button>
-                              <Button
-                                variant="default"
-                                onClick={handleResetAll}
-                                className="bg-red-600 hover:bg-red-700"
-                              >
-                                <RotateCcw className="mr-2 h-4 w-4" />
-                                [RESET ALL]
-                              </Button>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
-                      )}
-                    </div>
+                    {/* Buttons - Right side (none now) */}
+                    <div className="flex gap-2 shrink-0" />
                   </div>
                 </div>
               </motion.div>

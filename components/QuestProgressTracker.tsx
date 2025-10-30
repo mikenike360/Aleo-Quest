@@ -24,6 +24,7 @@ interface QuestProgressTrackerProps {
   badges: string[];
   onStageSelect: (stage: QuestStage) => void;
   className?: string;
+  onReset?: () => void;
 }
 
 export function QuestProgressTracker({ 
@@ -31,7 +32,8 @@ export function QuestProgressTracker({
   completedStages, 
   badges, 
   onStageSelect,
-  className = '' 
+  className = '',
+  onReset
 }: QuestProgressTrackerProps) {
   const progressPercent = Math.round((badges.length / 5) * 100);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -44,6 +46,17 @@ export function QuestProgressTracker({
           <div className="text-xs sm:text-sm text-cyan-400 flex-1 min-w-0">
             QUEST_PROGRESS [{badges.length}/5]
           </div>
+          {onReset && (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={onReset}
+                className="font-mono text-[10px] px-2 py-1 border-2 border-gray-700 text-red-400 hover:border-red-500 hover:bg-red-500/10"
+                title="Reset quest progress"
+              >
+                [RESET]
+              </button>
+            </div>
+          )}
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="text-cyan-400 hover:text-cyan-300 transition-colors font-mono text-xs flex-shrink-0 px-1"

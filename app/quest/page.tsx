@@ -183,17 +183,7 @@ export default function QuestPage() {
                   <AleoLogo colorScheme="green" size="small" />
                   <TerminalBreadcrumb currentPage="quest" colorScheme="green" />
                 </div>
-                <div className="ml-auto pr-2">
-                  <button 
-                    onClick={() => {
-                      soundManager.toggleMute();
-                      soundManager.playClickSound();
-                    }}
-                    className="font-mono text-[10px] sm:text-xs px-2 sm:px-3 py-1.5 border-2 border-gray-700 bg-black/50 text-green-400 hover:border-green-500 hover:bg-green-500/10 transition-all"
-                  >
-                    [{isAudioMuted ? 'UNMUTE' : 'MUTE'}]
-                  </button>
-                </div>
+                <div className="ml-auto pr-2"></div>
               </div>
               <div className="px-2 sm:px-4 py-2 font-mono text-xs text-gray-400 text-center">
                 &gt; An educational journey through zero-knowledge_

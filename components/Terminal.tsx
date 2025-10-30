@@ -1,6 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useSoundManager } from '@/lib/audio';
+import { useAppStore } from '@/lib/store';
 import { CRTEffect } from './CRTEffect';
 
 interface TerminalProps {
@@ -25,6 +27,9 @@ export function Terminal({ title = 'aleo-quest.sh', children, glow = 'green', sh
     yellow: 'border-yellow-600 bg-yellow-900/20 text-yellow-400',
   };
 
+  const soundManager = useSoundManager();
+  const isAudioMuted = useAppStore((state) => state.isAudioMuted);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -43,8 +48,17 @@ export function Terminal({ title = 'aleo-quest.sh', children, glow = 'green', sh
           </div>
           <span className="ml-3 font-mono text-sm tracking-wider">{title}</span>
         </div>
-        <div className="text-xs font-mono">
-          [ONLINE]
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              soundManager.toggleMute();
+              soundManager.playClickSound?.();
+            }}
+            className="font-mono text-[10px] sm:text-xs px-2 sm:px-3 py-1 border-2 border-gray-700 bg-black/50 text-green-400 hover:border-green-500 hover:bg-green-500/10"
+          >
+            [{isAudioMuted ? 'UNMUTE' : 'MUTE'}]
+          </button>
+          <div className="text-xs font-mono">[ONLINE]</div>
         </div>
       </div>
 

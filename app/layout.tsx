@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Link from 'next/link';
+import Script from 'next/script';
 import { Home } from 'lucide-react';
 import './globals.css';
 
@@ -19,6 +20,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.className} bg-gray-900 text-white antialiased`}>
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-LZCDVNHZC1"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-LZCDVNHZC1');
+          `}
+        </Script>
+        
         {/* Terminal Navigation */}
         <nav className="sticky top-0 z-50 border-b border-cyan-500/30 bg-gray-900/95 backdrop-blur-lg">
           <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">

@@ -27,7 +27,7 @@ export function TerminalScroll({ children, autoScroll = true }: TerminalScrollPr
   return (
     <div
       ref={scrollRef}
-      className="overflow-y-auto overflow-x-hidden h-[70vh] max-h-[600px] terminal-text"
+      className="relative overflow-y-auto overflow-x-hidden h-[70vh] max-h-[600px] terminal-text"
       style={{
         scrollbarWidth: 'thin',
         scrollbarColor: 'rgba(99, 102, 241, 0.3) transparent',
